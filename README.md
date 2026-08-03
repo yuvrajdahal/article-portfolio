@@ -14,9 +14,17 @@ npm install
 ## Commands
 
 ```bash
-hugo server        # dev server at http://localhost:1313, live reload
-hugo               # production build into ./public
+npm run dev        # dev server at http://localhost:1313, live reload, drafts on
+npm run build      # production build (--gc --minify) into ./public
+npm run preview    # production build, then serve ./public at :8080 (no live reload)
+npm run clean      # remove public/, resources/, .hugo_build.lock
+npm run deploy     # build, then push to origin — see "Deploying"
 ```
+
+The scripts live in `scripts/` and each takes `PORT=…` plus any extra flags,
+which are forwarded to Hugo: `npm run dev -- --bind 0.0.0.0`. They install npm
+dependencies on first run, since Tailwind is invoked through Hugo Pipes and
+needs the CLI binary in `node_modules`.
 
 Tailwind runs inside the Hugo asset pipeline (`css.TailwindCSS` in
 `layouts/_partials/head.html`), so there is no separate watch process.
@@ -37,7 +45,7 @@ Tailwind runs inside the Hugo asset pipeline (`css.TailwindCSS` in
 **A blog post**
 
 ```bash
-hugo new content blog/my-post.md
+npm run new post my-post        # -> content/blog/my-post.md
 ```
 
 Remove `draft: true` when it's ready.
@@ -45,7 +53,7 @@ Remove `draft: true` when it's ready.
 **A project**
 
 ```bash
-hugo new content projects/my-project.md
+npm run new project my-project  # -> content/projects/my-project.md
 ```
 
 Then add to the front matter:
@@ -88,7 +96,20 @@ on — the recurring device that ties the pages together.
 
 ## Deploying
 
-`hugo` outputs a static site to `public/`. On Cloudflare Pages or Netlify:
+`npm run deploy` assumes the host builds from the GitHub repo on push: it
+verifies the tree is clean, runs the production build locally so a breakage
+surfaces here rather than in the hosted build, shows the commits about to go
+out, and pushes to `origin/main` after you confirm. Override the branch with
+`DEPLOY_BRANCH`.
+
+To upload `public/` directly instead of going through git:
+
+```bash
+npm run deploy cloudflare   # wrangler pages deploy — set CF_PAGES_PROJECT
+npm run deploy netlify      # netlify-cli deploy --prod
+```
+
+Host settings, either way:
 
 - Build command: `npm install && hugo --gc --minify`
 - Output directory: `public`

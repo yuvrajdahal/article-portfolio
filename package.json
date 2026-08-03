@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "./scripts/dev.sh",
+    "build": "./scripts/build.sh",
+    "preview": "./scripts/preview.sh",
+    "clean": "./scripts/clean.sh",
+    "new": "./scripts/new.sh",
+    "deploy": "./scripts/deploy.sh"
   },
   "keywords": [],
   "author": "",
