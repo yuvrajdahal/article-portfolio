@@ -10,10 +10,13 @@
 
   <div class="rows mt-10">
     {{ range .Pages }}
-      <a class="row row-link" href="{{ .RelPermalink }}">
+      {{/* Posts published elsewhere carry `external:` and link straight out. */}}
+      {{ $external := .Params.external }}
+      <a class="row row-link" href="{{ $external | default .RelPermalink }}"
+         {{- with $external }} target="_blank" rel="noopener"{{ end }}>
         <div class="row-top">
           <h2 class="row-title">{{ .Title }}</h2>
-          <span class="meta">{{ .Date.Format "Jan 2, 2006" }}</span>
+          <span class="meta">{{ .Date.Format "Jan 2, 2006" }}{{ with .Params.externalSource }} · {{ . }} ↗{{ end }}</span>
         </div>
         <p class="row-desc">{{ .Description | default .Summary }}</p>
       </a>
