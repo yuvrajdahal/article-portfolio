@@ -13,7 +13,6 @@ source "$(dirname "$0")/lib.sh"
 
 TARGET="${1:-git}"
 BRANCH="${DEPLOY_BRANCH:-main}"
-PROJECT="${CF_PAGES_PROJECT:-portfolio}"
 
 confirm() {
   printf '%s [y/N] ' "$1"
@@ -48,9 +47,10 @@ case "$TARGET" in
 
   cloudflare|cf)
     need npx "Install Node.js to run wrangler."
-    ./scripts/build.sh
-    confirm "Upload ./public to Cloudflare Pages project '$PROJECT'?"
-    npx --yes wrangler pages deploy public --project-name "$PROJECT"
+    # wrangler.jsonc names the Worker, runs `npm run build` as its custom build,
+    # and serves ./public as static assets — so no build step or flags here.
+    confirm "Deploy to the Cloudflare Worker named in wrangler.jsonc?"
+    npx --yes wrangler deploy
     ;;
 
   netlify)

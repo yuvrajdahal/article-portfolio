@@ -1,0 +1,14 @@
+{
+  // Static site on Workers: no server code, just the built ./public directory.
+  // Without this file wrangler auto-detects the framework and guesses a build
+  // command of `npx hugo`, which fails — hugo is not an npm package.
+  "name": "article-portfolio",
+  "compatibility_date": "2026-08-03",
+  "build": {
+    "command": "npm run build"
+  },
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page"
+  }
+}

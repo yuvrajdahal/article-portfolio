@@ -105,11 +105,17 @@ out, and pushes to `origin/main` after you confirm. Override the branch with
 To upload `public/` directly instead of going through git:
 
 ```bash
-npm run deploy cloudflare   # wrangler pages deploy — set CF_PAGES_PROJECT
+npm run deploy cloudflare   # wrangler deploy
 npm run deploy netlify      # netlify-cli deploy --prod
 ```
 
-Host settings, either way:
+The site runs as a Cloudflare Worker serving static assets. `wrangler.jsonc`
+holds the Worker name, `npm run build` as the custom build command, and
+`./public` as the asset directory — without it wrangler auto-detects the
+framework and guesses `npx hugo`, which fails, since Hugo is not an npm package.
+Check the config with `npx wrangler deploy --dry-run`.
+
+On a host that builds the site itself instead (Pages, Netlify):
 
 - Build command: `npm install && npm run build`
 - Output directory: `public`
