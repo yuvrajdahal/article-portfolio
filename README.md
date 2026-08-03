@@ -111,8 +111,15 @@ npm run deploy netlify      # netlify-cli deploy --prod
 
 Host settings, either way:
 
-- Build command: `npm install && hugo --gc --minify`
+- Build command: `npm install && npm run build`
 - Output directory: `public`
-- Environment: `HUGO_VERSION = 0.164.0`
+
+The Hugo version is pinned in `.tool-versions` (0.164.0). Templates use
+`site.Language.Locale`, which does not exist before 0.164 — an older Hugo dies
+with `can't evaluate field Locale`. `scripts/lib.sh` checks the version before
+building so that fails with a readable message. If the host still picks its own
+Hugo (Cloudflare Pages build image v1 ignores `.tool-versions`), set
+`HUGO_VERSION = 0.164.0` as a build environment variable, or move the project to
+build image v2.
 
 Set `baseURL` in `hugo.toml` if the domain changes.
