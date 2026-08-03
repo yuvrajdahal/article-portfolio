@@ -1,4 +1,4 @@
-# yuvrajdahal.com.np
+# articles.yuvrajdahal.com.np
 
 Personal site — portfolio, blog, résumé. Hugo + Tailwind CSS v4.
 

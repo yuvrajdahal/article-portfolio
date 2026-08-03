@@ -1,4 +1,4 @@
-baseURL = 'https://yuvrajdahal.com.np/'
+baseURL = 'https://articles.yuvrajdahal.com.np/'
 locale = 'en-us'
 title = 'Yuvraj Dahal'
 enableRobotsTXT = true
