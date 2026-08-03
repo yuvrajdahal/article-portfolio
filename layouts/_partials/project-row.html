@@ -1,0 +1,8 @@
+<a class="row row-link" href="{{ .RelPermalink }}">
+  <div class="row-top">
+    <h3 class="row-title">{{ .Title }}</h3>
+    <span class="meta">{{ with .Params.label }}{{ . }}{{ else }}Project{{ end }}</span>
+  </div>
+  {{ with .Params.blurb }}<p class="row-desc">{{ . }}</p>{{ else }}<p class="row-desc">{{ .Summary }}</p>{{ end }}
+  {{ with .Params.stack }}<p class="stack-line">{{ delimit . " · " }}</p>{{ end }}
+</a>

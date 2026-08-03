@@ -1,0 +1,92 @@
+{{ define "main" }}
+{{ $r := hugo.Data.resume }}
+<div class="container-page">
+  <article>
+    <header class="page-head">
+      <p class="kicker">Résumé · Updated {{ now.Format "January 2006" }}</p>
+      <h1 class="page-title">{{ site.Params.author }}</h1>
+      <p class="lead">{{ $r.summary }}</p>
+
+      <p class="mono mt-6 text-muted">
+        <a class="border-b border-rule hover:border-ink hover:text-ink" href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a>
+        <span class="px-2">·</span>
+        <a class="border-b border-rule hover:border-ink hover:text-ink" href="tel:{{ replace site.Params.phone " " "" }}">{{ site.Params.phone }}</a>
+        <span class="px-2">·</span>
+        {{ site.Params.location }}
+      </p>
+
+      <p class="no-print mt-7">
+        <button type="button" class="button" data-print>Print or save as PDF</button>
+      </p>
+    </header>
+
+    <section class="resume-section mt-13">
+      <h2 class="resume-heading">Skills</h2>
+      <dl class="mt-6 grid gap-5 min-[720px]:grid-cols-[10rem_1fr] min-[720px]:items-baseline min-[720px]:gap-x-8 min-[720px]:gap-y-4.5">
+        {{ range $r.skills }}
+          <dt class="kicker pt-0.5">{{ .label }}</dt>
+          <dd class="stack-line mt-0 text-[0.78rem] text-ink-2">{{ delimit .items " · " }}</dd>
+        {{ end }}
+      </dl>
+    </section>
+
+    <section class="resume-section mt-13">
+      <h2 class="resume-heading">Experience</h2>
+      {{ range $r.experience }}
+        <div class="entry{{ if .current }} is-current{{ end }}">
+          <div class="entry-head">
+            <h3 class="entry-title">{{ .role }} — {{ .company }}</h3>
+            <span class="meta">{{ .period }}</span>
+          </div>
+          <p class="entry-sub mono">{{ .location }}</p>
+          <ul class="entry-points">
+            {{ range .points }}<li>{{ . }}</li>{{ end }}
+          </ul>
+          {{ with .stack }}<p class="stack-line">{{ delimit . " · " }}</p>{{ end }}
+        </div>
+      {{ end }}
+    </section>
+
+    <section class="resume-section mt-13">
+      <h2 class="resume-heading">Projects</h2>
+      {{ range where site.RegularPages "Section" "projects" }}
+        <div class="entry">
+          <div class="entry-head">
+            <h3 class="entry-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+            <span class="meta">{{ .Params.linkLabel | default "Project" }}</span>
+          </div>
+          <p class="entry-desc">{{ .Description }}</p>
+          {{ with .Params.stack }}<p class="stack-line">{{ delimit . " · " }}</p>{{ end }}
+        </div>
+      {{ end }}
+    </section>
+
+    <section class="resume-section mt-13">
+      <h2 class="resume-heading">Education</h2>
+      {{ range $r.education }}
+        <div class="entry">
+          <div class="entry-head">
+            <h3 class="entry-title">{{ .award }}</h3>
+            <span class="meta">{{ .period }}</span>
+          </div>
+          <p class="entry-sub mono">{{ .school }}, {{ .location }}</p>
+        </div>
+      {{ end }}
+    </section>
+
+    <section class="resume-section mt-13">
+      <h2 class="resume-heading">Events &amp; achievements</h2>
+      {{ range $r.events }}
+        <div class="entry">
+          <div class="entry-head">
+            <h3 class="entry-title">{{ .name }}</h3>
+            <span class="meta">{{ .date }}</span>
+          </div>
+          <p class="entry-sub mono">{{ .host }}</p>
+          <p class="entry-desc">{{ .text }}</p>
+        </div>
+      {{ end }}
+    </section>
+  </article>
+</div>
+{{ end }}

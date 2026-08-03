@@ -1,0 +1,484 @@
+@import "tailwindcss";
+
+@source "../../layouts";
+@source "../../content";
+
+/* ==========================================================================
+   Yuvraj Dahal — Swiss/International grid, engineering register.
+   Theme tokens → base → components. Layout lives in the markup as utilities.
+   ========================================================================== */
+
+@theme {
+  --color-ink: #0f0f0e;
+  --color-ink-2: #3d3d39;
+  --color-muted: #6e6e68;
+  --color-paper: #ffffff;
+  --color-soft: #f5f5f1;
+  --color-rule: #e2e2dc;
+  --color-signal: #d6001c;
+
+  --font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-read: 'Newsreader', Georgia, 'Times New Roman', serif;
+  /* Marker on a photo edge — used only for Life captions. */
+  --font-hand: 'Caveat', ui-rounded, cursive;
+
+  /* The desktop nav needs more room than `lg` allows. */
+  --breakpoint-nav: 900px;
+  --breakpoint-wide: 1080px;
+
+  --spacing-header: 4.35rem;
+
+  --text-display: clamp(2.15rem, 1.5rem + 3.2vw, 3.6rem);
+  --text-title: clamp(1.75rem, 1.4rem + 1.6vw, 2.35rem);
+  --text-section: clamp(1.35rem, 1.1rem + 1vw, 1.6rem);
+
+}
+
+/* ------------------------------------------------------------------ base -- */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  html.is-locked,
+  html.is-locked body {
+    overflow: hidden;
+  }
+
+  body {
+    @apply flex min-h-screen flex-col bg-paper font-sans text-base leading-relaxed text-ink antialiased;
+    font-synthesis-weight: none;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-semibold leading-[1.12] tracking-[-0.021em];
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-[3px] outline-signal;
+  }
+}
+
+/* ------------------------------------------------------------ components -- */
+
+@layer components {
+
+  /* --- shell ------------------------------------------------------------ */
+
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-7 lg:px-8;
+  }
+
+  .skip-link {
+    @apply absolute top-0 -left-[9999px] z-[200] bg-ink px-4 py-3 font-mono text-xs
+           tracking-[0.08em] text-paper uppercase focus:left-0;
+  }
+
+  /* --- typography ------------------------------------------------------- */
+
+  .display {
+    @apply max-w-[26ch] text-display font-semibold tracking-[-0.032em];
+  }
+
+  .page-title {
+    @apply max-w-[24ch] text-title tracking-[-0.03em];
+  }
+
+  .section-title {
+    @apply text-section tracking-[-0.025em];
+  }
+
+  .aside-title {
+    @apply mt-2.5 text-2xl tracking-[-0.022em];
+  }
+
+  .kicker {
+    @apply font-mono text-[0.68rem] font-medium tracking-[0.16em] text-muted uppercase;
+  }
+
+  .meta {
+    @apply flex-none pt-1.5 font-mono text-[0.68rem] tracking-[0.11em] text-muted uppercase;
+  }
+
+  .lead {
+    @apply mt-6 max-w-[58ch] text-lg leading-[1.62] text-ink-2;
+  }
+
+  .mono {
+    @apply font-mono text-[0.78rem] tracking-[0.02em];
+  }
+
+  .empty {
+    @apply border-t border-rule py-6 text-sm text-muted;
+  }
+
+  /* --- controls --------------------------------------------------------- */
+
+  .inline-link {
+    @apply mt-7 inline-block border-b border-ink pb-0.5 font-mono text-[0.72rem]
+           tracking-[0.13em] uppercase hover:border-signal hover:text-signal;
+  }
+
+  .mono-link {
+    @apply border-b border-rule font-mono text-[0.75rem] hover:border-ink;
+  }
+
+  .button {
+    @apply inline-flex cursor-pointer items-center border border-ink bg-ink px-4.5 py-2.5
+           font-mono text-[0.7rem] tracking-[0.13em] text-paper uppercase
+           hover:bg-paper hover:text-ink;
+  }
+
+  .icon-link {
+    @apply inline-flex size-8 items-center justify-center border border-rule text-ink-2
+           transition-colors hover:border-ink hover:text-ink;
+  }
+  .icon-link svg {
+    @apply size-[0.95rem];
+  }
+
+  /* --- header ----------------------------------------------------------- */
+
+  .site-header {
+    @apply fixed inset-x-0 top-0 z-100 border-b border-rule bg-paper;
+  }
+
+  .nav-link {
+    @apply relative px-2.5 py-1.5 font-mono text-[0.7rem] tracking-[0.13em] text-ink-2
+           uppercase hover:text-ink;
+  }
+  .nav-link.is-active {
+    @apply text-ink;
+  }
+  .nav-link.is-active::after {
+    @apply absolute inset-x-2.5 bottom-0.5 h-0.5 bg-signal content-[''];
+  }
+
+  .menu-button {
+    @apply inline-flex cursor-pointer items-center gap-2 border border-rule px-3.5 py-1.5
+           font-mono text-[0.7rem] tracking-[0.13em] text-ink uppercase hover:border-ink
+           nav:hidden;
+  }
+
+  .menu-overlay {
+    @apply fixed inset-0 z-110 bg-ink/35;
+  }
+
+  .mobile-menu {
+    @apply fixed inset-x-0 top-0 z-120 max-h-screen overflow-y-auto border-b border-rule
+           bg-paper px-5 pb-8 sm:px-7;
+  }
+
+  .mobile-link {
+    @apply block border-b border-rule py-4 text-[1.35rem] font-medium tracking-[-0.02em]
+           hover:text-signal;
+  }
+
+  /* --- rows ------------------------------------------------------------- */
+
+  .rows {
+    @apply mt-7 border-t border-rule;
+  }
+
+  .row {
+    @apply block border-b border-rule py-6;
+  }
+
+  .row-link {
+    @apply transition-colors duration-150 hover:bg-soft/45;
+  }
+
+  .row-top {
+    @apply flex items-start justify-between gap-6;
+  }
+
+  .row-title {
+    @apply text-xl font-semibold tracking-[-0.022em] sm:text-[1.3rem];
+  }
+
+  .row-desc {
+    @apply mt-3 max-w-[62ch] text-[0.94rem] leading-[1.62] text-ink-2;
+  }
+
+  /* Every project and role states what it runs on. */
+  .stack-line {
+    @apply mt-3.5 font-mono text-[0.72rem] leading-[1.75] tracking-[0.02em] text-muted;
+  }
+  .stack-line-lg {
+    @apply text-[0.8rem] text-ink-2;
+  }
+
+  .spec {
+    @apply mt-9 max-w-[68ch] bg-soft px-5 py-4.5;
+  }
+  .spec .stack-line {
+    @apply mt-2.5;
+  }
+
+  .is-current {
+    @apply relative;
+  }
+  .is-current::before {
+    @apply absolute top-6 -left-3.5 h-4.5 w-[3px] bg-signal content-[''];
+  }
+
+  /* --- aside ------------------------------------------------------------ */
+
+  .contact-row {
+    @apply flex items-baseline justify-between gap-4 border border-rule px-3.5 py-3
+           text-[0.92rem];
+  }
+  a.contact-row {
+    @apply hover:border-ink;
+  }
+
+  .aside-item {
+    @apply block border-b border-rule py-3.5 transition-colors duration-150
+           first:border-t hover:bg-soft/45;
+  }
+  .aside-item h3 {
+    @apply text-base font-medium leading-snug;
+  }
+  .aside-item .meta {
+    @apply block pt-1.5;
+  }
+
+  /* --- article hero: meta card + share rail ----------------------------- */
+
+  /* Filled block, dividers inset from the edges — not a bordered table. */
+  .meta-card {
+    @apply bg-soft px-5;
+  }
+  .meta-card > div {
+    @apply border-b border-rule py-3 last:border-b-0;
+  }
+  .meta-card dt {
+    @apply font-mono text-[0.63rem] font-medium tracking-[0.15em] text-muted uppercase;
+  }
+  .meta-card dd {
+    @apply mt-0.5 text-[0.9rem] text-ink;
+  }
+  .meta-card dd a {
+    @apply border-b border-rule hover:border-signal hover:text-signal;
+  }
+
+  .share-rail {
+    @apply inline-flex flex-row gap-1.5 border border-rule p-1.5 nav:flex-col;
+  }
+  /* Laid out under an article rather than beside it. */
+  .share-inline .share-rail {
+    @apply nav:flex-row;
+  }
+  .share-button {
+    @apply inline-flex size-9 cursor-pointer items-center justify-center border border-rule
+           text-ink-2 transition-colors hover:border-ink hover:text-ink;
+  }
+  .share-button svg {
+    @apply size-[0.95rem];
+  }
+  .share-button[data-copied='true'] {
+    @apply border-signal text-signal;
+  }
+
+  /* --- life: polaroids -------------------------------------------------- */
+
+  .life-grid {
+    @apply grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-3 lg:grid-cols-4;
+  }
+
+  .polaroid {
+    @apply bg-paper p-3 pb-0 transition-transform duration-200
+           shadow-[0_1px_2px_rgba(15,15,14,0.16),0_10px_24px_-10px_rgba(15,15,14,0.35)];
+  }
+  /* Each print sits how it fell — three offsets, cycled. */
+  .polaroid:nth-child(3n+1) { rotate: -1.3deg; }
+  .polaroid:nth-child(3n+2) { rotate: 0.9deg; }
+  .polaroid:nth-child(3n)   { rotate: -0.4deg; }
+  .polaroid:hover {
+    rotate: 0deg;
+    @apply scale-[1.03];
+  }
+
+  .polaroid-img {
+    @apply aspect-square overflow-hidden bg-soft;
+  }
+  .polaroid-img img {
+    @apply size-full object-cover;
+  }
+
+  .polaroid-caption {
+    @apply flex min-h-14 items-center gap-2 px-1 py-3 font-hand text-[1.2rem]
+           leading-tight font-medium text-ink;
+  }
+  .polaroid-index {
+    @apply text-muted;
+  }
+
+  /* --- page furniture --------------------------------------------------- */
+
+  .page-head {
+    @apply border-b border-rule pb-9;
+  }
+  .page-head .page-title {
+    @apply mt-4.5;
+  }
+  .page-head-link .inline-link,
+  .page-foot .inline-link {
+    @apply mt-0;
+  }
+  .page-foot {
+    @apply mt-12 border-t border-rule pt-6;
+  }
+
+  /* --- résumé ----------------------------------------------------------- */
+
+  .resume-heading {
+    @apply border-b border-ink pb-3.5 font-mono text-[0.7rem] font-medium
+           tracking-[0.18em] text-muted uppercase;
+  }
+
+  .entry {
+    @apply border-b border-rule py-6.5 last:border-b-0;
+  }
+  .entry-head {
+    @apply flex items-start justify-between gap-6;
+  }
+  .entry-title {
+    @apply text-lg tracking-[-0.02em];
+  }
+  .entry-title a {
+    @apply border-b border-rule hover:border-signal hover:text-signal;
+  }
+  .entry-sub {
+    @apply mt-2 text-muted;
+  }
+  .entry-desc {
+    @apply mt-3 max-w-[62ch] text-[0.94rem] text-ink-2;
+  }
+  .entry.is-current::before {
+    @apply top-7.5;
+  }
+
+  .entry-points {
+    @apply mt-4 grid max-w-[68ch] gap-2.5;
+  }
+  .entry-points li {
+    @apply relative pl-4.5 text-[0.94rem] leading-relaxed text-ink-2;
+  }
+  .entry-points li::before {
+    @apply absolute top-[0.66em] left-0 h-px w-2 bg-ink content-[''];
+  }
+
+  /* --- prose ------------------------------------------------------------ */
+
+  .prose {
+    @apply mt-10 max-w-[68ch];
+  }
+  .prose-narrow {
+    @apply max-w-[62ch];
+  }
+  .prose-read {
+    @apply font-read text-[1.14rem] leading-[1.72];
+  }
+
+  .prose > * + * {
+    @apply mt-5.5;
+  }
+  .prose h2 {
+    @apply mt-11 font-sans text-[1.4rem] tracking-[-0.025em];
+  }
+  .prose h3 {
+    @apply mt-8 font-sans text-lg;
+  }
+  .prose p {
+    @apply text-ink-2;
+  }
+  .prose strong {
+    @apply font-semibold text-ink;
+  }
+  .prose a {
+    @apply border-b border-rule text-ink hover:border-signal hover:text-signal;
+  }
+  .prose ul,
+  .prose ol {
+    @apply grid gap-2.5;
+  }
+  .prose li {
+    @apply relative pl-4.5 text-ink-2;
+  }
+  .prose li::before {
+    @apply absolute top-[0.7em] left-0 h-px w-2 bg-ink content-[''];
+  }
+  .prose ol {
+    counter-reset: item;
+  }
+  .prose ol > li {
+    @apply pl-6.5;
+    counter-increment: item;
+  }
+  .prose ol > li::before {
+    @apply top-0 h-auto w-auto bg-transparent font-mono text-[0.78rem] text-muted;
+    content: counter(item) '.';
+  }
+  .prose blockquote {
+    @apply border-l-2 border-signal pl-5 text-ink;
+  }
+  .prose code {
+    @apply bg-soft px-1.5 py-0.5 font-mono text-[0.85em];
+  }
+  .prose pre {
+    @apply overflow-x-auto bg-soft px-5 py-4.5 text-[0.82rem] leading-relaxed;
+  }
+  .prose pre code {
+    @apply bg-transparent p-0 text-[length:inherit];
+  }
+  .prose hr {
+    @apply my-10 border-t border-rule;
+  }
+  .prose table {
+    @apply w-full border-collapse text-[0.92rem];
+  }
+  .prose th,
+  .prose td {
+    @apply border-b border-rule px-2 py-3 text-left;
+  }
+  .prose th {
+    @apply font-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase;
+  }
+
+  /* --- footer ----------------------------------------------------------- */
+
+  .footer-title {
+    @apply font-mono text-[0.68rem] tracking-[0.16em] text-muted uppercase;
+  }
+  .footer-cols a {
+    @apply text-[0.92rem] text-ink-2 hover:text-signal;
+  }
+}
+
+/* ----------------------------------------------------------------- print -- */
+
+@media print {
+  .site-header,
+  .site-footer,
+  .mobile-menu,
+  .menu-overlay,
+  .no-print,
+  .skip-link {
+    display: none !important;
+  }
+  body { font-size: 10.5pt; }
+  .site-main { padding: 0; }
+  .container-page { max-width: none; padding: 0; }
+  .page-title { font-size: 22pt; }
+  .lead { margin-top: 0.8rem; font-size: 11pt; }
+  .resume-section { margin-top: 1.5rem; break-inside: avoid; }
+  .entry { padding: 0.8rem 0; break-inside: avoid; }
+  a { border: 0 !important; }
+}

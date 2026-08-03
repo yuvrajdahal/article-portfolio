@@ -1,0 +1,25 @@
+{{ define "main" }}
+<div class="container-page">
+  <header class="page-head">
+    {{ with .Params.kicker }}<p class="kicker">{{ . }}</p>{{ end }}
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ with .Content }}<div class="prose prose-narrow">{{ . }}</div>{{ end }}
+
+  <div class="rows mt-10">
+    {{ range .Pages }}
+      <a class="row row-link" href="{{ .RelPermalink }}">
+        <div class="row-top">
+          <h2 class="row-title">{{ .Title }}</h2>
+          <span class="meta">{{ .Date.Format "Jan 2, 2006" }}</span>
+        </div>
+        <p class="row-desc">{{ .Description | default .Summary }}</p>
+      </a>
+    {{ else }}
+      <p class="empty">Nothing here yet.</p>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,31 @@
+<footer class="site-footer mt-12 shrink-0 border-t border-rule pt-14 pb-10">
+  <div class="container-page">
+    <div class="grid gap-11 min-[800px]:grid-cols-[5fr_7fr] min-[800px]:gap-8">
+      <div>
+        <p class="text-2xl font-semibold tracking-[-0.025em]">{{ site.Params.author }}</p>
+        <p class="mt-3.5 max-w-[34ch] text-sm text-muted">{{ site.Params.role }} in {{ site.Params.location }}. Building services, shipping them, and keeping them up.</p>
+        <div class="mt-5 flex gap-1.5">{{ partial "social-links.html" . }}</div>
+      </div>
+
+      <div class="footer-cols grid grid-cols-3 gap-8">
+        <div>
+          <p class="footer-title">Work</p>
+          <ul class="mt-3.5 grid gap-2">{{ range site.Menus.footerwork }}<li><a href="{{ if .Params.external }}{{ .URL }}{{ else }}{{ .URL | relURL }}{{ end }}"{{ if .Params.external }} target="_blank" rel="noopener"{{ end }}>{{ .Name }}</a></li>{{ end }}</ul>
+        </div>
+        <div>
+          <p class="footer-title">Writing</p>
+          <ul class="mt-3.5 grid gap-2">{{ range site.Menus.footerwriting }}<li><a href="{{ if .Params.external }}{{ .URL }}{{ else }}{{ .URL | relURL }}{{ end }}"{{ if .Params.external }} target="_blank" rel="noopener"{{ end }}>{{ .Name }}</a></li>{{ end }}</ul>
+        </div>
+        <div>
+          <p class="footer-title">Elsewhere</p>
+          <ul class="mt-3.5 grid gap-2">{{ range site.Menus.footerelse }}<li><a href="{{ if .Params.external }}{{ .URL }}{{ else }}{{ .URL | relURL }}{{ end }}"{{ if .Params.external }} target="_blank" rel="noopener"{{ end }}>{{ .Name }}</a></li>{{ end }}</ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-rule pt-5 font-mono text-[0.68rem] tracking-[0.12em] text-muted uppercase">
+      <p>&copy; {{ now.Year }} {{ site.Params.author }}</p>
+      <p>Built with Hugo · {{ site.Params.location }}</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,19 @@
+{{ define "main" }}
+<div class="container-page">
+  <header class="page-head">
+    <p class="kicker">Projects</p>
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ with .Content }}<div class="prose prose-narrow">{{ . }}</div>{{ end }}
+
+  <div class="rows mt-10">
+    {{ range .Pages }}
+      {{ partial "project-row.html" . }}
+    {{ else }}
+      <p class="empty">No projects published yet.</p>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

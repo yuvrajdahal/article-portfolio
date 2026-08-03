@@ -1,0 +1,74 @@
+{{ define "main" }}
+<div class="container-page">
+
+  <section class="border-b border-rule pb-11">
+    <h1 class="display">Yuvraj Dahal: Full-Stack Developer</h1>
+    <p class="lead">{{ site.Params.description }}</p>
+  </section>
+
+  <div class="mt-12 grid grid-cols-1 gap-14 nav:mt-14 nav:grid-cols-[2fr_1fr] nav:gap-14">
+    <div class="space-y-15">
+
+      <section>
+        <header class="pb-2">
+          <p class="kicker">Selected work</p>
+          <h2 class="section-title mt-3">Things I've built and run</h2>
+        </header>
+        <p class="mt-4 max-w-[52ch] text-muted">Platforms in production, described by what they actually run on.</p>
+
+        <div class="rows">
+          {{ range first 3 (where site.RegularPages "Section" "projects") }}
+            {{ partial "project-row.html" . }}
+          {{ else }}
+            <p class="empty">No projects published yet.</p>
+          {{ end }}
+        </div>
+        <a class="inline-link" href="{{ "/projects/" | relURL }}">All projects</a>
+      </section>
+    </div>
+
+    <aside class="space-y-12 border-rule nav:border-l nav:pl-11">
+      <section>
+        <p class="kicker">Connect</p>
+        <div class="mt-5 grid gap-2">
+          <a href="https://github.com/{{ site.Params.social.github }}" target="_blank" rel="noopener" class="contact-row">
+            <span>GitHub</span><span class="mono text-muted">{{ site.Params.social.github }}</span>
+          </a>
+          <a href="https://linkedin.com/in/{{ site.Params.social.linkedin }}" target="_blank" rel="noopener" class="contact-row">
+            <span>LinkedIn</span><span class="mono text-muted">{{ site.Params.social.linkedin }}</span>
+          </a>
+          <a href="https://x.com/{{ site.Params.social.twitter }}" target="_blank" rel="noopener" class="contact-row">
+            <span>X</span><span class="mono text-muted">{{ site.Params.social.twitter }}</span>
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <p class="kicker">Writing</p>
+        <h2 class="aside-title">From the blog</h2>
+        {{ $posts := first 4 (where site.RegularPages "Section" "blog") }}
+        {{ with $posts }}
+          <div class="mt-5">
+            {{ range . }}
+              <a class="aside-item" href="{{ .RelPermalink }}">
+                <h3>{{ .Title }}</h3>
+                <p class="meta">{{ .Date.Format "Jan 2, 2006" }}</p>
+              </a>
+            {{ end }}
+          </div>
+        {{ else }}
+          <p class="mt-4 text-sm leading-relaxed text-muted">No posts yet. Notes on services, deploys, and things that broke are on the way.</p>
+        {{ end }}
+        <a class="inline-link" href="{{ "/blog/" | relURL }}">All posts</a>
+      </section>
+
+      <section>
+        <p class="kicker">Résumé</p>
+        <h2 class="aside-title">The full record</h2>
+        <p class="mt-4 text-sm leading-relaxed text-muted">Two roles, two platforms, and the tools behind them — on one page.</p>
+        <a class="inline-link" href="{{ site.Params.resumeURL }}" target="_blank" rel="noopener">Read the résumé</a>
+      </section>
+    </aside>
+  </div>
+</div>
+{{ end }}

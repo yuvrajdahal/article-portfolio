@@ -1,0 +1,50 @@
+{{ define "main" }}
+<div class="container-page">
+  <header class="page-head">
+    <p class="kicker">Contact</p>
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+  </header>
+
+  <div class="mt-9 grid grid-cols-1 gap-14 nav:grid-cols-[2fr_1fr] nav:gap-10">
+    <div>
+      <div class="prose prose-narrow">{{ .Content }}</div>
+    </div>
+
+    <aside class="space-y-11 border-rule nav:border-l nav:pl-9">
+      <section>
+        <p class="kicker">Direct</p>
+        <div class="mt-4 grid gap-2">
+          <a class="contact-row" href="mailto:{{ site.Params.email }}">
+            <span>Email</span><span class="mono text-muted">{{ site.Params.email }}</span>
+          </a>
+          <a class="contact-row" href="tel:{{ replace site.Params.phone " " "" }}">
+            <span>Phone</span><span class="mono text-muted">{{ site.Params.phone }}</span>
+          </a>
+          <span class="contact-row">
+            <span>Based in</span><span class="mono text-muted">{{ site.Params.location }}</span>
+          </span>
+        </div>
+      </section>
+
+      <section>
+        <p class="kicker">Elsewhere</p>
+        <div class="mt-4 grid gap-2">
+          <a class="contact-row" href="https://github.com/{{ site.Params.social.github }}" target="_blank" rel="noopener">
+            <span>GitHub</span><span class="mono text-muted">{{ site.Params.social.github }}</span>
+          </a>
+          <a class="contact-row" href="https://x.com/{{ site.Params.social.twitter }}" target="_blank" rel="noopener">
+            <span>X</span><span class="mono text-muted">{{ site.Params.social.twitter }}</span>
+          </a>
+          <a class="contact-row" href="https://linkedin.com/in/{{ site.Params.social.linkedin }}" target="_blank" rel="noopener">
+            <span>LinkedIn</span><span class="mono text-muted">{{ site.Params.social.linkedin }}</span>
+          </a>
+          <a class="contact-row" href="https://facebook.com/{{ site.Params.social.facebook }}" target="_blank" rel="noopener">
+            <span>Facebook</span><span class="mono text-muted">{{ site.Params.social.facebook }}</span>
+          </a>
+        </div>
+      </section>
+    </aside>
+  </div>
+</div>
+{{ end }}

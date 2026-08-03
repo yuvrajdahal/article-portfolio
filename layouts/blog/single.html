@@ -1,0 +1,24 @@
+{{ define "main" }}
+<div class="container-page">
+  <article class="mx-auto w-full max-w-3xl">
+    <header class="border-b border-rule pb-4">
+      <p class="kicker">{{ .Date.Format "January 2, 2006" }} · {{ .ReadingTime }} min read</p>
+    </header>
+
+    <h1 class="page-title mt-9 max-w-none">{{ .Title }}</h1>
+    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+
+    <div class="prose prose-read mt-9 max-w-none">
+      {{ .Content }}
+    </div>
+
+    <div class="share-inline mt-14 border-t border-rule pt-7">
+      {{ partial "share-rail.html" . }}
+    </div>
+
+    <nav class="page-foot">
+      <a class="inline-link" href="{{ "/blog/" | relURL }}">All posts</a>
+    </nav>
+  </article>
+</div>
+{{ end }}

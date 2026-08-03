@@ -1,0 +1,101 @@
+baseURL = 'https://yuvrajdahal.com.np/'
+locale = 'en-us'
+title = 'Yuvraj Dahal'
+enableRobotsTXT = true
+enableGitInfo = false
+summaryLength = 30
+
+[pagination]
+  pagerSize = 10
+
+[params]
+  author = 'Yuvraj Dahal'
+  role = 'Full-Stack Software Developer'
+  location = 'Kathmandu, Nepal'
+  email = 'iamyuvraj456@gmail.com'
+  phone = '+977 9746337223'
+  description = "I'm Yuvraj, a full-stack developer in Kathmandu. I build and operate distributed web systems — microservices behind an API gateway, event pipelines, and the CI/CD and monitoring that keep them running."
+  ogImage = '/og.png'
+  resumeURL = 'https://docs.google.com/document/d/1DAaG15U-u5PxnaLBXgFKS2AxK5n_vlbp7cVe1FeXC-w/edit?tab=t.0'
+
+  [params.social]
+    github = 'yuvrajdahal'
+    twitter = 'yuvrajdahal'
+    linkedin = 'yuvrajdahal'
+    facebook = 'yuvrajdahal'
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    style = 'bw'
+    tabWidth = 2
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+[menus]
+  [[menus.main]]
+    name = 'About'
+    url = '/about/'
+    weight = 10
+  [[menus.main]]
+    name = 'Projects'
+    url = '/projects/'
+    weight = 20
+  [[menus.main]]
+    name = 'Blog'
+    url = '/blog/'
+    weight = 30
+  [[menus.main]]
+    name = 'Résumé'
+    url = 'https://docs.google.com/document/d/1DAaG15U-u5PxnaLBXgFKS2AxK5n_vlbp7cVe1FeXC-w/edit?tab=t.0'
+    weight = 40
+    [menus.main.params]
+      external = true
+  [[menus.main]]
+    name = 'Life'
+    url = '/life/'
+    weight = 50
+  [[menus.main]]
+    name = 'Contact'
+    url = '/contact/'
+    weight = 60
+
+  [[menus.footerwork]]
+    name = 'Projects'
+    url = '/projects/'
+    weight = 10
+  [[menus.footerwork]]
+    name = 'Résumé'
+    url = 'https://docs.google.com/document/d/1DAaG15U-u5PxnaLBXgFKS2AxK5n_vlbp7cVe1FeXC-w/edit?tab=t.0'
+    weight = 20
+    [menus.footerwork.params]
+      external = true
+  [[menus.footerwork]]
+    name = 'Life'
+    url = '/life/'
+    weight = 30
+  [[menus.footerwork]]
+    name = 'Uses'
+    url = '/uses/'
+    weight = 40
+
+  [[menus.footerwriting]]
+    name = 'Blog'
+    url = '/blog/'
+    weight = 10
+  [[menus.footerwriting]]
+    name = 'RSS'
+    url = '/index.xml'
+    weight = 20
+
+  [[menus.footerelse]]
+    name = 'About'
+    url = '/about/'
+    weight = 10
+  [[menus.footerelse]]
+    name = 'Contact'
+    url = '/contact/'
+    weight = 20

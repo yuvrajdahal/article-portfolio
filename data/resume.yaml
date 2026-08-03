@@ -1,0 +1,67 @@
+summary: >-
+  Full-stack software developer with 2+ years building scalable web applications across
+  frontend, backend, and cloud infrastructure. Proficient in modern frameworks and tools;
+  experienced deploying and managing services on AWS with Docker and Linux.
+
+skills:
+  - label: Languages
+    items: [JavaScript/TypeScript, SQL, Python, Bash, C/C++, Dart]
+  - label: Backend & data
+    items: [Node.js, PostgreSQL, MongoDB, Redis, Kafka, Elasticsearch, PostGIS, BullMQ, Socket.IO, Casbin, Sequelize]
+  - label: Frontend
+    items: [React.js, Next.js, Nx]
+  - label: Infrastructure
+    items: [Linux, AWS, EC2, Lightsail, Route 53, Docker, Nginx, Jenkins, GitHub Actions, Prometheus, Grafana]
+
+experience:
+  - company: Saurik Solution Pvt Ltd
+    role: Full Stack Developer
+    location: Baneshwor, Nepal
+    period: 01/2026 — Present
+    current: true
+    stack: [Nx, Node.js, React, Redis, PostgreSQL, Kafka, Elasticsearch, Socket.IO, Casbin, Docker, BullMQ]
+    points:
+      - Architected and built Baalvo, a multi-vertical marketplace platform, using the Nx monorepo tool with 13+ microservices and 6+ React frontends.
+      - Designed and implemented a centralized API gateway with request proxying, rate limiting, and per-service documentation via Swagger.
+      - Engineered role-based access control using Casbin with a Sequelize adapter, enforcing multi-tenant fine-grained permissions by user role.
+      - Integrated real-time features including chat and counter/negotiation systems via Socket.IO, geospatial filtering via PostGIS, and background jobs using BullMQ and Redis.
+      - Implemented Kafka and Elasticsearch for event-driven service communication and scalable full-text search, enabling async pipelines and sub-second product queries.
+      - Automated the CI/CD pipeline using Jenkins with parallelized Docker builds across 16 services in batched stages and registry-based layer caching, eliminating manual build and deploy steps entirely.
+
+  - company: Infoclick Digital Solutions
+    role: Full Stack Developer
+    location: Biratnagar, Nepal
+    period: 12/2023 — 01/2026
+    stack: [React, Next.js, Node.js, MongoDB, Docker, AWS, Lightsail, EC2, Linux, Prometheus, Grafana]
+    points:
+      - Deployed and maintained an enterprise-level management system on AWS (EC2, Linux), monitoring real-time performance charts and ensuring high availability of production infrastructure.
+      - Created and designed web applications from detailed specifications, ensuring client satisfaction and timely delivery.
+      - Implemented CI/CD pipelines using GitHub Actions to automate build and deployment workflows, reducing manual intervention and streamlining releases.
+      - Set up monitoring and observability with Prometheus and Grafana to track system metrics, visualize infrastructure health, and configure alerting for production environments.
+      - Mentored junior developers and interns through code reviews and pair-programming sessions to maintain code quality and accelerate onboarding.
+
+education:
+  - school: Mahendra Morang Adarsha Multiple Campus
+    location: Biratnagar
+    award: Bachelor in Computer Application (4th year)
+    period: Present
+  - school: Shree Pokhariya Secondary School
+    location: Biratnagar
+    award: Diploma in Computer Engineering
+    period: 2075 — 2079 BS
+
+events:
+  - name: Taranga — The Wave of Technology
+    host: IOE, Purwanchal Campus, Dharan
+    date: 10 Jan 2026
+    text: >-
+      Led a disciplinary team to develop Sajha Samaj during the three-day Taranga hackathon — a
+      collaborative startup platform for inter-startup communication and resource sharing —
+      providing strategic leadership and overseeing end-to-end project execution.
+  - name: Vertex Hacks, Chapter Alpha
+    host: IOE, Thapathali Campus, Kathmandu
+    date: 23 Jan 2023
+    text: >-
+      Helped develop AgroStack during the three-day Vertex Hacks hackathon, building the Node.js
+      backend for an agriculture app that improves delivery efficiency and supports charitable
+      initiatives.

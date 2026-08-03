@@ -1,0 +1,56 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {{- $title := cond .IsHome site.Title (printf "%s — %s" .Title site.Title) }}
+  {{- $desc := .Description | default .Summary | default site.Params.description }}
+  {{- $desc = $desc | plainify | truncate 200 }}
+  <title>{{ $title }}</title>
+  <meta name="description" content="{{ $desc }}">
+  <meta name="author" content="{{ site.Params.author }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+  <meta property="og:title" content="{{ $title }}">
+  <meta property="og:description" content="{{ $desc }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:site_name" content="{{ site.Title }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ $title }}">
+  <meta name="twitter:description" content="{{ $desc }}">
+  <meta name="twitter:site" content="@{{ site.Params.social.twitter }}">
+  <meta name="twitter:creator" content="@{{ site.Params.social.twitter }}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Caveat:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
+
+  {{ $opts := dict "minify" hugo.IsProduction }}
+  {{ with resources.Get "css/main.css" | css.TailwindCSS $opts | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+  {{ end }}
+
+  {{ with .OutputFormats.Get "rss" }}
+    <link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}">
+  {{ end }}
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#0f0f0e">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": {{ site.Params.author }},
+    "url": {{ site.BaseURL }},
+    "jobTitle": {{ site.Params.role }},
+    "email": {{ printf "mailto:%s" site.Params.email }},
+    "address": { "@type": "PostalAddress", "addressLocality": "Kathmandu", "addressCountry": "NP" },
+    "sameAs": [
+      {{ printf "https://github.com/%s" site.Params.social.github }},
+      {{ printf "https://x.com/%s" site.Params.social.twitter }},
+      {{ printf "https://linkedin.com/in/%s" site.Params.social.linkedin }}
+    ]
+  }
+  </script>
+</head>

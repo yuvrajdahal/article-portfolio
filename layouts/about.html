@@ -1,0 +1,17 @@
+{{ define "main" }}
+<div class="container-page">
+  <div class="mx-auto w-full max-w-3xl">
+    <header class="border-b border-rule pb-4">
+      <p class="kicker">{{ .Params.kicker | default .Title }}</p>
+    </header>
+
+    <div class="prose mt-9 max-w-none">
+      {{ .Content }}
+    </div>
+
+    <p class="mt-12">
+      <a class="button" href="{{ site.Params.resumeURL }}" target="_blank" rel="noopener">Download résumé</a>
+    </p>
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,19 @@
+{{ $url := .Permalink }}
+{{ $text := printf "%s — %s" .Title site.Params.author }}
+<div class="share-rail" aria-label="Share this page">
+  <a class="share-button" target="_blank" rel="noopener" aria-label="Share on X"
+     href="https://x.com/intent/tweet?text={{ $text | urlquery }}&url={{ $url | urlquery }}">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M18.901 2H22l-6.77 7.736L23.2 22h-6.245l-4.89-6.356L6.5 22H3.4l7.238-8.273L1 2h6.405l4.416 5.816L18.901 2zm-1.092 18.16h1.717L6.474 3.748H4.63L17.81 20.16z"/></svg>
+  </a>
+  <a class="share-button" target="_blank" rel="noopener" aria-label="Share on LinkedIn"
+     href="https://www.linkedin.com/sharing/share-offsite/?url={{ $url | urlquery }}">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6.13 8.7a1.83 1.83 0 1 1 0-3.7 1.83 1.83 0 0 1 0 3.66zM4.5 20.5h3.25V10H4.5v10.5zM10 10.02h3.12v1.44h.05c.43-.82 1.5-1.68 3.08-1.68 3.3 0 3.9 2.17 3.9 4.99v5.73H16.9v-5.08c0-1.21-.02-2.77-1.69-2.77-1.69 0-1.95 1.32-1.95 2.68v5.17H10V10.02z"/></svg>
+  </a>
+  <a class="share-button" target="_blank" rel="noopener" aria-label="Share on Facebook"
+     href="https://www.facebook.com/sharer/sharer.php?u={{ $url | urlquery }}">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94z"/></svg>
+  </a>
+  <button type="button" class="share-button" data-copy-link="{{ $url }}" aria-label="Copy link to this page">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 13.5a3.5 3.5 0 0 0 5 0l3-3a3.5 3.5 0 0 0-5-5l-1 1"/><path d="M14 10.5a3.5 3.5 0 0 0-5 0l-3 3a3.5 3.5 0 0 0 5 5l1-1"/></svg>
+  </button>
+</div>

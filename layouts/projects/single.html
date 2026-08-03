@@ -1,0 +1,60 @@
+{{ define "main" }}
+<div class="container-page">
+  <article>
+
+    <header class="border-b border-rule pb-12">
+      <div class="grid grid-cols-1 items-end gap-10 nav:grid-cols-[1.6fr_1fr]">
+        <div>
+          <h1 class="page-title max-w-[20ch] text-display">{{ .Title }}</h1>
+          {{ with .Description }}<p class="lead mt-5 text-base">{{ . }}</p>{{ end }}
+        </div>
+
+        <dl class="meta-card">
+          <div>
+            <dt>Type</dt>
+            <dd>{{ .Params.label | default "Project" }}</dd>
+          </div>
+          {{ with .Params.period }}
+            <div>
+              <dt>Period</dt>
+              <dd>{{ . }}</dd>
+            </div>
+          {{ end }}
+          {{ with .Params.link }}
+            <div>
+              <dt>Live</dt>
+              <dd><a href="{{ . }}" target="_blank" rel="noopener">{{ $.Params.linkLabel | default . }}</a></dd>
+            </div>
+          {{ end }}
+        </dl>
+      </div>
+    </header>
+
+    <div class="relative mt-14">
+      <div class="mb-8 nav:absolute nav:inset-y-0 nav:left-0 nav:mb-0">
+        <div class="nav:sticky nav:top-[calc(var(--spacing-header)+2.5rem)]">
+          {{ partial "share-rail.html" . }}
+        </div>
+      </div>
+
+      <div class="mx-auto w-full max-w-3xl">
+        {{ with .Params.stack }}
+          <div class="spec mt-0 max-w-none">
+            <p class="kicker">Stack</p>
+            <p class="stack-line stack-line-lg">{{ delimit . " · " }}</p>
+          </div>
+        {{ end }}
+
+        <div class="prose max-w-none">
+          {{ .Content }}
+        </div>
+
+        <nav class="page-foot">
+          <a class="inline-link" href="{{ "/projects/" | relURL }}">All projects</a>
+        </nav>
+      </div>
+    </div>
+
+  </article>
+</div>
+{{ end }}

@@ -1,0 +1,48 @@
+<header class="site-header">
+  <div class="container-page flex h-header items-center justify-between gap-5">
+    <a href="{{ "/" | relURL }}" class="font-mono text-[0.8rem] font-medium tracking-[0.16em] whitespace-nowrap uppercase" aria-label="{{ site.Params.author }} — home">
+      {{ site.Params.author }}
+    </a>
+
+    <nav class="ml-auto hidden items-center gap-1.5 nav:flex" aria-label="Main">
+      {{ range site.Menus.main }}
+        {{ $active := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
+        <a href="{{ if .Params.external }}{{ .URL }}{{ else }}{{ .URL | relURL }}{{ end }}"
+           {{- if .Params.external }} target="_blank" rel="noopener"{{ end }}
+           class="nav-link{{ if $active }} is-active{{ end }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{ end }}
+    </nav>
+
+    <div class="ml-4 hidden items-center gap-1.5 wide:flex">
+      {{ partial "social-links.html" . }}
+    </div>
+
+    <button id="menu-toggle" class="menu-button" type="button" aria-controls="mobile-menu" aria-expanded="false">
+      <span class="menu-button-label">Menu</span>
+    </button>
+  </div>
+</header>
+
+<div id="menu-overlay" class="menu-overlay" hidden></div>
+
+<nav id="mobile-menu" class="mobile-menu" hidden aria-label="Mobile">
+  <div class="mb-6 flex h-header items-center justify-between">
+    <span class="font-mono text-[0.8rem] font-medium tracking-[0.16em] uppercase">{{ site.Params.author }}</span>
+    <button id="menu-close" class="menu-button" type="button">
+      <span class="menu-button-label">Close</span>
+    </button>
+  </div>
+
+  <p class="kicker">Navigation</p>
+  <div class="mt-3 border-t border-rule">
+    {{ range site.Menus.main }}
+      <a href="{{ if .Params.external }}{{ .URL }}{{ else }}{{ .URL | relURL }}{{ end }}"
+         {{- if .Params.external }} target="_blank" rel="noopener"{{ end }} class="mobile-link">{{ .Name }}</a>
+    {{ end }}
+  </div>
+
+  <div class="mt-7 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex gap-1.5">{{ partial "social-links.html" . }}</div>
+    <a class="mono-link" href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a>
+  </div>
+</nav>
