@@ -55,10 +55,6 @@ summaryLength = 30
     [menus.main.params]
       external = true
   [[menus.main]]
-    name = 'Life'
-    url = '/life/'
-    weight = 50
-  [[menus.main]]
     name = 'Contact'
     url = '/contact/'
     weight = 60
