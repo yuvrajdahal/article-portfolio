@@ -67,18 +67,6 @@ link: "https://example.com"
 linkLabel: "example.com"
 ```
 
-**Photos** go straight into `content/life/`. Anything you drop there shows up
-as a Polaroid. To caption one, add it to `photos:` in `content/life/index.md`:
-
-```yaml
-photos:
-  - file: "kathmandu-dusk.jpg"
-    caption: "kathmandu, dusk"
-```
-
-Listed photos come first in the order given; the rest follow, uncaptioned. The
-numbering (`#1`, `#2`, …) is generated.
-
 **The résumé** is the Google Doc at `params.resumeURL` in `hugo.toml` — the nav,
 footer, and home page all link to it in a new tab. There is also a built-in
 printable résumé page at `/resume/` driven by `data/resume.yaml`, currently not

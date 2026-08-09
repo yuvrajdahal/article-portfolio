@@ -11,10 +11,10 @@ need() {
   command -v "$1" >/dev/null 2>&1 || die "$1 not found on PATH. $2"
 }
 
-# Templates use site.Language.Locale, which only exists in 0.164+. Older Hugo
-# fails with a cryptic "can't evaluate field Locale" render error, so check up
-# front — the version is pinned for CI in .tool-versions.
-HUGO_MIN="0.164.0"
+# Floor for the template features the layouts use (site.Language.LanguageCode,
+# the layouts/ flat layout lookup). The deploy host ignores .tool-versions and
+# ships 0.147.x, so keep this at or below what it provides.
+HUGO_MIN="0.146.0"
 
 need_hugo() {
   need hugo "Install it from https://gohugo.io ($HUGO_MIN+ required)."

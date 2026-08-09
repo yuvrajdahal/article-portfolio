@@ -1,5 +1,5 @@
 baseURL = 'https://articles.yuvrajdahal.com.np/'
-locale = 'en-us'
+languageCode = 'en-us'
 title = 'Yuvraj Dahal'
 enableRobotsTXT = true
 enableGitInfo = false
@@ -69,10 +69,6 @@ summaryLength = 30
     weight = 20
     [menus.footerwork.params]
       external = true
-  [[menus.footerwork]]
-    name = 'Life'
-    url = '/life/'
-    weight = 30
   [[menus.footerwork]]
     name = 'Uses'
     url = '/uses/'

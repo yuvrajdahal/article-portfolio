@@ -20,8 +20,6 @@
   --font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-read: 'Newsreader', Georgia, 'Times New Roman', serif;
-  /* Marker on a photo edge — used only for Life captions. */
-  --font-hand: 'Caveat', ui-rounded, cursive;
 
   /* The desktop nav needs more room than `lg` allows. */
   --breakpoint-nav: 900px;
@@ -284,40 +282,6 @@
   }
   .share-button[data-copied='true'] {
     @apply border-signal text-signal;
-  }
-
-  /* --- life: polaroids -------------------------------------------------- */
-
-  .life-grid {
-    @apply grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-3 lg:grid-cols-4;
-  }
-
-  .polaroid {
-    @apply bg-paper p-3 pb-0 transition-transform duration-200
-           shadow-[0_1px_2px_rgba(15,15,14,0.16),0_10px_24px_-10px_rgba(15,15,14,0.35)];
-  }
-  /* Each print sits how it fell — three offsets, cycled. */
-  .polaroid:nth-child(3n+1) { rotate: -1.3deg; }
-  .polaroid:nth-child(3n+2) { rotate: 0.9deg; }
-  .polaroid:nth-child(3n)   { rotate: -0.4deg; }
-  .polaroid:hover {
-    rotate: 0deg;
-    @apply scale-[1.03];
-  }
-
-  .polaroid-img {
-    @apply aspect-square overflow-hidden bg-soft;
-  }
-  .polaroid-img img {
-    @apply size-full object-cover;
-  }
-
-  .polaroid-caption {
-    @apply flex min-h-14 items-center gap-2 px-1 py-3 font-hand text-[1.2rem]
-           leading-tight font-medium text-ink;
-  }
-  .polaroid-index {
-    @apply text-muted;
   }
 
   /* --- page furniture --------------------------------------------------- */
