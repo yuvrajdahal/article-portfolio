@@ -4,54 +4,73 @@
 @source "../../content";
 
 /* ==========================================================================
-   Yuvraj Dahal — Swiss/International grid, engineering register.
+   Yuvraj Dahal — monochrome Swiss notebook. Ink on paper, hairline rules,
+   hard offset shadows, square corners, geometric glyphs, expo-eased motion.
    Theme tokens → base → components. Layout lives in the markup as utilities.
    ========================================================================== */
 
 @theme {
-  --color-ink: #0f0f0e;
-  --color-ink-2: #3d3d39;
-  --color-muted: #6e6e68;
+  --color-ink: #0a0a0a;
+  --color-ink-2: #3f3f46;
+  --color-muted: #6b6b72;
   --color-paper: #ffffff;
-  --color-soft: #f5f5f1;
-  --color-rule: #e2e2dc;
-  --color-signal: #d6001c;
+  --color-soft: #f6f6f6;
+  --color-soft-2: #ededed;
+  --color-rule: #e5e5e7;
+  --color-rule-strong: #cfcfd3;
+  /* No hue: the accent is ink. Kept as a token so markup can say "accent". */
+  --color-signal: #0a0a0a;
 
-  --font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'Public Sans', 'Helvetica Neue', 'Nimbus Sans', sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-read: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-read: 'Public Sans', 'Helvetica Neue', 'Nimbus Sans', sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* The desktop nav needs more room than `lg` allows. */
   --breakpoint-nav: 900px;
   --breakpoint-wide: 1080px;
 
-  --spacing-header: 4.35rem;
+  --spacing-header: 4rem;
 
-  --text-display: clamp(2.15rem, 1.5rem + 3.2vw, 3.6rem);
-  --text-title: clamp(1.75rem, 1.4rem + 1.6vw, 2.35rem);
-  --text-section: clamp(1.35rem, 1.1rem + 1vw, 1.6rem);
-
+  --text-display: clamp(2.35rem, 5.2vw, 4.4rem);
+  --text-title: clamp(2rem, 1.5rem + 2.4vw, 3rem);
+  --text-section: clamp(1.5rem, 2.3vw, 2rem);
 }
 
 /* ------------------------------------------------------------------ base -- */
 
 @layer base {
+  :root {
+    color-scheme: light;
+    --gutter: clamp(1rem, 4vw, 2rem);
+  }
+
   html {
     -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--spacing-header) + 1.5rem);
   }
 
   html.is-locked,
   html.is-locked body {
     overflow: hidden;
+    touch-action: none;
   }
 
   body {
     @apply flex min-h-screen flex-col bg-paper font-sans text-base leading-relaxed text-ink antialiased;
     font-synthesis-weight: none;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    @apply bg-ink text-paper;
   }
 
   h1, h2, h3, h4 {
-    @apply font-semibold leading-[1.12] tracking-[-0.021em];
+    @apply font-display font-semibold leading-[1.12] tracking-[-0.025em];
   }
 
   a {
@@ -59,7 +78,18 @@
   }
 
   :focus-visible {
-    @apply outline-2 outline-offset-[3px] outline-signal;
+    @apply outline-2 outline-offset-[3px] outline-ink;
+  }
+
+  /* Photos stay grey until something invites a look. */
+  img {
+    filter: grayscale(1);
+    transition: filter 0.5s ease;
+  }
+  img:hover,
+  :where(a, button, figure, .card):hover img,
+  :where(a, button, figure, .card):focus-visible img {
+    filter: grayscale(0);
   }
 }
 
@@ -70,7 +100,7 @@
   /* --- shell ------------------------------------------------------------ */
 
   .container-page {
-    @apply mx-auto w-full max-w-6xl px-5 sm:px-7 lg:px-8;
+    @apply mx-auto w-full max-w-[1200px] px-(--gutter);
   }
 
   .skip-link {
@@ -78,34 +108,110 @@
            tracking-[0.08em] text-paper uppercase focus:left-0;
   }
 
+  .section {
+    @apply py-16 md:py-24;
+  }
+  .section + .section {
+    @apply border-t border-rule;
+  }
+
+  .section-head {
+    @apply mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-end md:justify-between;
+  }
+  .section-head-sub {
+    @apply mt-2 max-w-xl text-ink-2;
+  }
+
+  /* --- brand mark: twin summits; the far one climbs on hover ----------- */
+
+  .wordmark {
+    @apply inline-flex items-center gap-2.5 font-display text-[0.95rem] font-semibold
+           tracking-[-0.01em] whitespace-nowrap text-ink;
+  }
+  .wordmark-big {
+    @apply text-2xl tracking-[-0.025em];
+  }
+  .site-mark {
+    @apply relative inline-block h-4 w-5 shrink-0;
+  }
+  .site-mark::before,
+  .site-mark::after {
+    content: '';
+    position: absolute;
+    background: var(--color-ink);
+    transition: inset 0.45s var(--ease-out-expo);
+  }
+  /* Near summit, with a notch of snow line cut across its shoulders. */
+  .site-mark::before {
+    inset: 0 30% 0 0;
+    clip-path: polygon(0 100%, 50% 0, 100% 100%, 76% 100%, 62% 62%, 50% 74%, 38% 62%, 24% 100%);
+  }
+  .site-mark::after {
+    inset: 38% 0 0 42%;
+    clip-path: polygon(0 100%, 55% 0, 100% 100%);
+  }
+  .wordmark:hover .site-mark::after { inset: 4% 0 0 42%; }
+  .wordmark:hover .site-mark::before { inset: 30% 30% 0 0; }
+
+  /* --- glyphs: one mountain silhouette per card ---------------------- */
+
+  .glyph {
+    @apply relative inline-block h-5 w-7 shrink-0;
+  }
+  .glyph::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--color-ink);
+  }
+  /* lone peak */
+  .glyph-0::before { clip-path: polygon(0 100%, 50% 0, 100% 100%); }
+  /* twin summits */
+  .glyph-1::before { clip-path: polygon(0 100%, 30% 18%, 48% 52%, 70% 0, 100% 100%); }
+  /* long ridge */
+  .glyph-2::before { clip-path: polygon(0 100%, 18% 48%, 32% 66%, 58% 8%, 78% 52%, 100% 30%, 100% 100%); }
+  /* fishtail — Machapuchare */
+  .glyph-3::before { clip-path: polygon(0 100%, 42% 12%, 50% 32%, 60% 0, 100% 100%); }
+
   /* --- typography ------------------------------------------------------- */
 
   .display {
-    @apply max-w-[26ch] text-display font-semibold tracking-[-0.032em];
+    @apply max-w-[16ch] text-display leading-[1.02] font-semibold tracking-[-0.035em];
   }
 
   .page-title {
-    @apply max-w-[24ch] text-title tracking-[-0.03em];
+    @apply max-w-[22ch] text-title leading-[1.06] tracking-[-0.032em];
   }
 
   .section-title {
-    @apply text-section tracking-[-0.025em];
+    @apply text-section leading-[1.15] tracking-[-0.025em];
   }
 
   .aside-title {
-    @apply mt-2.5 text-2xl tracking-[-0.022em];
+    @apply mt-4 text-2xl tracking-[-0.025em];
   }
 
+  /* Eyebrow: mono caps led by a small ink square. */
   .kicker {
-    @apply font-mono text-[0.68rem] font-medium tracking-[0.16em] text-muted uppercase;
+    @apply inline-flex items-start gap-2.5 font-mono text-[0.72rem] leading-normal font-medium
+           tracking-[0.12em] text-muted uppercase;
+  }
+  .kicker:not(dt)::before {
+    content: '';
+    flex-shrink: 0;
+    width: 0.6rem;
+    height: 0.5rem;
+    margin-top: 0.36em;
+    background: var(--color-ink);
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
   }
 
   .meta {
-    @apply flex-none pt-1.5 font-mono text-[0.68rem] tracking-[0.11em] text-muted uppercase;
+    @apply flex-none pt-1 font-mono text-xs tracking-[0.02em] text-muted;
   }
 
   .lead {
-    @apply mt-6 max-w-[58ch] text-lg leading-[1.62] text-ink-2;
+    @apply mt-6 max-w-xl text-lg leading-relaxed text-ink-2 md:text-xl;
   }
 
   .mono {
@@ -116,66 +222,401 @@
     @apply border-t border-rule py-6 text-sm text-muted;
   }
 
+  /* --- motion ----------------------------------------------------------- */
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translate3d(0, 12px, 0); }
+    to   { opacity: 1; transform: none; }
+  }
+  .fade-up {
+    opacity: 0;
+    animation: fade-up 0.8s var(--ease-out-expo) forwards;
+    animation-delay: var(--d, 0.05s);
+  }
+
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+    transition: opacity 0.7s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    transition-delay: var(--d, 0s);
+  }
+  .js [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+
   /* --- controls --------------------------------------------------------- */
 
   .inline-link {
-    @apply mt-7 inline-block border-b border-ink pb-0.5 font-mono text-[0.72rem]
-           tracking-[0.13em] uppercase hover:border-signal hover:text-signal;
+    @apply mt-8 inline-flex items-center gap-2 text-sm font-medium text-ink
+           hover:underline hover:decoration-1 hover:underline-offset-4;
+  }
+  .inline-link::after {
+    content: '→';
+    transition: transform 0.35s var(--ease-out-expo);
+  }
+  .inline-link:hover::after {
+    transform: translateX(4px);
   }
 
   .mono-link {
-    @apply border-b border-rule font-mono text-[0.75rem] hover:border-ink;
+    @apply font-mono text-[0.75rem] underline decoration-rule-strong underline-offset-4
+           hover:decoration-ink;
   }
 
   .button {
-    @apply inline-flex cursor-pointer items-center border border-ink bg-ink px-4.5 py-2.5
-           font-mono text-[0.7rem] tracking-[0.13em] text-paper uppercase
-           hover:bg-paper hover:text-ink;
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 border border-ink bg-ink
+           px-5 py-3 text-sm font-medium text-paper;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+  .button:hover {
+    @apply bg-paper text-ink;
+  }
+  .button-ghost {
+    @apply bg-transparent text-ink;
+  }
+  .button-ghost:hover {
+    @apply bg-ink text-paper;
+  }
+  .button .arrow {
+    transition: transform 0.35s var(--ease-out-expo);
+  }
+  .button:hover .arrow {
+    transform: translateX(3px);
   }
 
   .icon-link {
-    @apply inline-flex size-8 items-center justify-center border border-rule text-ink-2
-           transition-colors hover:border-ink hover:text-ink;
+    @apply inline-flex size-9 items-center justify-center border border-rule-strong text-ink-2;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  }
+  .icon-link:hover {
+    @apply border-ink bg-ink text-paper;
   }
   .icon-link svg {
-    @apply size-[0.95rem];
+    @apply size-4;
+  }
+
+  .chip {
+    @apply inline-flex items-center border border-rule-strong px-2 py-0.5 font-mono
+           text-[0.68rem] text-ink-2;
   }
 
   /* --- header ----------------------------------------------------------- */
 
   .site-header {
-    @apply fixed inset-x-0 top-0 z-100 border-b border-rule bg-paper;
+    @apply fixed inset-x-0 top-0 z-100 border-b border-transparent bg-paper;
+    transition: transform 0.4s var(--ease-out-expo), border-color 0.3s ease;
+  }
+  .site-header.is-scrolled {
+    @apply border-rule-strong;
+  }
+  .site-header.is-hidden {
+    transform: translateY(-100%);
   }
 
   .nav-link {
-    @apply relative px-2.5 py-1.5 font-mono text-[0.7rem] tracking-[0.13em] text-ink-2
-           uppercase hover:text-ink;
+    @apply relative px-1 py-2 text-sm text-ink-2 hover:text-ink;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0.25rem;
+    bottom: 0.25rem;
+    height: 1px;
+    background: var(--color-ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease-out-expo);
+  }
+  .nav-link:hover::after,
+  .nav-link.is-active::after {
+    transform: scaleX(1);
   }
   .nav-link.is-active {
-    @apply text-ink;
-  }
-  .nav-link.is-active::after {
-    @apply absolute inset-x-2.5 bottom-0.5 h-0.5 bg-signal content-[''];
+    @apply font-medium text-ink;
   }
 
   .menu-button {
-    @apply inline-flex cursor-pointer items-center gap-2 border border-rule px-3.5 py-1.5
-           font-mono text-[0.7rem] tracking-[0.13em] text-ink uppercase hover:border-ink
+    @apply inline-flex cursor-pointer items-center gap-2 border border-rule-strong px-3.5 py-2
+           text-sm text-ink transition-colors hover:border-ink hover:bg-ink hover:text-paper
            nav:hidden;
   }
 
   .menu-overlay {
-    @apply fixed inset-0 z-110 bg-ink/35;
+    @apply fixed inset-0 z-110 bg-ink/40;
   }
 
   .mobile-menu {
-    @apply fixed inset-x-0 top-0 z-120 max-h-screen overflow-y-auto border-b border-rule
-           bg-paper px-5 pb-8 sm:px-7;
+    @apply fixed inset-x-0 top-0 z-120 max-h-screen overflow-y-auto border-b border-ink
+           bg-paper px-(--gutter) pb-8;
   }
 
   .mobile-link {
-    @apply block border-b border-rule py-4 text-[1.35rem] font-medium tracking-[-0.02em]
-           hover:text-signal;
+    @apply flex items-center justify-between border-b border-rule py-4 font-display
+           text-[1.5rem] font-semibold tracking-[-0.025em];
+  }
+  .mobile-link::after {
+    content: '→';
+    @apply text-base text-muted;
+    transition: transform 0.35s var(--ease-out-expo);
+  }
+  .mobile-link:hover::after {
+    transform: translateX(4px);
+  }
+
+  /* --- hero: centred copy over an ink-drawn range --------------------- */
+
+  .hero {
+    /* Height of the drawing at its rendered width (viewBox 1254 × 650). */
+    --range-w: min(100vw, 1120px);
+    --range-h: calc(var(--range-w) * 0.5183);
+    @apply relative isolate overflow-hidden border-b border-rule;
+    min-height: calc(100svh - var(--spacing-header) - 3.75rem);
+  }
+
+  .hero-copy {
+    @apply relative z-1 text-center;
+    padding-bottom: calc(var(--range-h) * 0.95);
+  }
+
+  .hero-meta {
+    @apply mt-8 flex flex-wrap justify-center gap-x-6 gap-y-1 font-mono text-xs
+           tracking-[0.02em] text-muted;
+  }
+  .hero-copy .button-ghost {
+    @apply bg-paper;
+  }
+  .hero-copy .button-ghost:hover {
+    @apply bg-ink;
+  }
+  .hero-meta a {
+    @apply text-ink-2 underline decoration-rule-strong underline-offset-4 hover:decoration-ink;
+  }
+
+  /* Layered scene: far range (img), near foothill + road + jeep (svg).
+     site.js shifts each [data-depth] layer and drives the jeep on scroll. */
+  .hero-range {
+    @apply pointer-events-none absolute bottom-0 left-1/2 -z-10;
+    width: var(--range-w);
+    aspect-ratio: 1254 / 650;
+    translate: -50% 0;
+    /* Peaks fade into the sky and the flanks into the page edges. */
+    mask-image:
+      linear-gradient(to bottom, transparent 0%, #000 30%),
+      linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+    mask-composite: intersect;
+    animation: fade-in 1.2s ease 0.2s both;
+  }
+  .hero-range > * {
+    @apply absolute inset-0 block h-auto w-full;
+    filter: none;
+    will-change: transform;
+  }
+  .scene-far {
+    opacity: 0.88;
+  }
+
+  .scene-hill {
+    fill: var(--color-paper);
+    stroke: var(--color-ink);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+  }
+  .scene-hatch {
+    stroke: var(--color-muted);
+    stroke-width: 1;
+    stroke-linecap: round;
+  }
+  /* Road: ink edges, paper bed, faint centre dashes, then an ink trail
+     that grows behind the jeep. */
+  .scene-road-edge {
+    stroke: var(--color-ink);
+    stroke-width: 9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .scene-road-bed {
+    stroke: var(--color-paper);
+    stroke-width: 6.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .scene-road-dash {
+    stroke: var(--color-rule-strong);
+    stroke-width: 0.9;
+    stroke-dasharray: 5 6;
+  }
+  .scene-trail {
+    stroke: var(--color-ink);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-dasharray: 0 99999;
+  }
+
+  .hero-sky {
+    @apply pointer-events-none absolute inset-0 -z-10 hidden md:block;
+  }
+
+  .hero-sun {
+    position: absolute;
+    top: 12%;
+    left: max(1.5rem, calc(50% - 36rem));
+    width: 3.5rem;
+    animation: sun-float 9s ease-in-out 2.6s infinite;
+  }
+  .hero-sun-ring {
+    stroke: var(--color-ink);
+    stroke-width: 1.4;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: ink-in 1.8s var(--ease-out-expo) 0.6s forwards;
+  }
+
+  .hero-cloud {
+    position: absolute;
+    stroke: var(--color-muted);
+    stroke-width: 1;
+    stroke-linecap: round;
+    opacity: 0;
+    animation: fade-in 1.2s ease 1.4s forwards, cloud-drift 32s ease-in-out 1.4s infinite alternate;
+  }
+  /* Both wisps stay outside the centred text column. */
+  .hero-cloud-a {
+    top: 16%;
+    right: max(1rem, calc(50% - 38rem));
+    width: 9rem;
+  }
+  .hero-cloud-b {
+    top: 34%;
+    left: max(1rem, calc(50% - 37rem));
+    width: 6.5rem;
+    animation-duration: 1.2s, 44s;
+    animation-direction: normal, alternate-reverse;
+  }
+
+  @keyframes ink-in    { to { stroke-dashoffset: 0; } }
+  @keyframes fade-in   { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes sun-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+  /* Drift uses transform; site.js owns `translate` for the parallax. */
+  @keyframes cloud-drift {
+    from { transform: translateX(-2.5rem); }
+    to   { transform: translateX(2.5rem); }
+  }
+
+  /* --- himalayan panorama (footer) ------------------------------------ */
+
+  .range-frame {
+    @apply relative;
+  }
+  /* The etching runs to the image edge; fade both flanks into the page. */
+  .range-art {
+    @apply block h-auto w-full;
+    filter: none;
+    opacity: 0.85;
+    mask-image: linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  }
+  .range-key {
+    @apply absolute inset-0 hidden size-full md:block;
+    overflow: visible;
+  }
+  .range-key text {
+    @apply font-mono;
+    font-size: 19px;
+    letter-spacing: 0.02em;
+    fill: var(--color-ink);
+    paint-order: stroke;
+    stroke: var(--color-paper);
+    stroke-width: 6px;
+    stroke-linejoin: round;
+  }
+  .range-key .range-m {
+    fill: var(--color-muted);
+  }
+  .range-leader {
+    stroke: var(--color-muted);
+    stroke-width: 1.5;
+    stroke-dasharray: 3 5;
+  }
+  .range-caption {
+    @apply mt-3 flex justify-between font-mono text-xs tracking-[0.02em] text-muted;
+  }
+
+  .range-summit {
+    fill: var(--color-paper);
+    stroke: var(--color-ink);
+    stroke-width: 1.5;
+  }
+
+  /* Key reveal: per peak, the leader grows up from the summit, the summit
+     ring pops, then the name rises in. --i staggers the peaks west → east. */
+  .js [data-reveal] .range-peak > * {
+    transform-box: fill-box;
+    opacity: 0;
+  }
+  .js [data-reveal] .range-leader {
+    transform: scaleY(0);
+    transform-origin: 50% 100%;
+  }
+  .js [data-reveal] .range-summit {
+    transform: scale(0);
+    transform-origin: center;
+  }
+  .js [data-reveal] .range-key text {
+    transform: translateY(8px);
+  }
+  .js [data-reveal].is-in .range-peak > * {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.35s ease, transform 0.5s var(--ease-out-expo);
+  }
+  .js [data-reveal].is-in .range-summit { transition-delay: calc(var(--i) * 0.12s); }
+  .js [data-reveal].is-in .range-leader { transition-delay: calc(var(--i) * 0.12s + 0.1s); }
+  .js [data-reveal].is-in .range-key text { transition-delay: calc(var(--i) * 0.12s + 0.35s); }
+
+  /* --- project cards ---------------------------------------------------- */
+
+  .cards {
+    @apply grid grid-cols-1 gap-6 md:grid-cols-2;
+  }
+
+  .card {
+    @apply relative flex h-full flex-col border border-rule-strong bg-paper p-6 md:p-7;
+    transition: transform 0.35s var(--ease-out-expo), box-shadow 0.35s var(--ease-out-expo),
+                border-color 0.2s ease;
+  }
+  .card:hover {
+    @apply border-ink;
+    transform: translate(-3px, -3px);
+    box-shadow: 3px 3px 0 var(--color-ink);
+  }
+  .card-arrow {
+    @apply text-lg text-muted;
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+  .card:hover .card-arrow {
+    @apply text-ink;
+    transform: translate(2px, -2px);
+  }
+  .card-title {
+    @apply mt-6 text-xl font-semibold tracking-[-0.02em] md:text-[1.4rem];
+  }
+  /* Whole card is the hit area; inner links sit above it. */
+  .card-title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .card-desc {
+    @apply mt-3 text-sm leading-relaxed text-ink-2;
+  }
+  .card-chips {
+    @apply mt-5 flex flex-wrap gap-1.5;
+  }
+  .card-foot {
+    @apply relative z-1 mt-auto flex items-center justify-between gap-4 pt-6;
   }
 
   /* --- rows ------------------------------------------------------------- */
@@ -185,23 +626,31 @@
   }
 
   .row {
-    @apply block border-b border-rule py-6;
+    @apply -mx-4 block border-b border-rule px-4 py-5;
   }
 
   .row-link {
-    @apply transition-colors duration-150 hover:bg-soft/45;
+    @apply transition-colors duration-150 hover:bg-soft/60;
   }
 
   .row-top {
-    @apply flex items-start justify-between gap-6;
+    @apply flex items-baseline justify-between gap-6;
   }
 
   .row-title {
-    @apply text-xl font-semibold tracking-[-0.022em] sm:text-[1.3rem];
+    @apply text-lg font-semibold tracking-[-0.015em] sm:text-xl;
+  }
+  .row-link .row-title::after {
+    content: '→';
+    @apply ml-2 inline-block text-sm font-normal text-muted;
+    transition: transform 0.2s ease;
+  }
+  .row-link:hover .row-title::after {
+    transform: translateX(4px);
   }
 
   .row-desc {
-    @apply mt-3 max-w-[62ch] text-[0.94rem] leading-[1.62] text-ink-2;
+    @apply mt-2 line-clamp-2 max-w-[62ch] text-sm leading-relaxed text-ink-2;
   }
 
   /* Every project and role states what it runs on. */
@@ -213,7 +662,7 @@
   }
 
   .spec {
-    @apply mt-9 max-w-[68ch] bg-soft px-5 py-4.5;
+    @apply mt-9 max-w-[68ch] border border-rule-strong px-5 py-4.5;
   }
   .spec .stack-line {
     @apply mt-2.5;
@@ -223,22 +672,26 @@
     @apply relative;
   }
   .is-current::before {
-    @apply absolute top-6 -left-3.5 h-4.5 w-[3px] bg-signal content-[''];
+    @apply absolute top-6 -left-3.5 size-2 bg-ink content-[''];
   }
 
   /* --- aside ------------------------------------------------------------ */
 
   .contact-row {
-    @apply flex items-baseline justify-between gap-4 border border-rule px-3.5 py-3
+    @apply flex items-baseline justify-between gap-4 border border-rule-strong px-3.5 py-3
            text-[0.92rem];
+    transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo),
+                border-color 0.2s ease;
   }
-  a.contact-row {
-    @apply hover:border-ink;
+  a.contact-row:hover {
+    @apply border-ink;
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 var(--color-ink);
   }
 
   .aside-item {
     @apply block border-b border-rule py-3.5 transition-colors duration-150
-           first:border-t hover:bg-soft/45;
+           first:border-t hover:bg-soft/60;
   }
   .aside-item h3 {
     @apply text-base font-medium leading-snug;
@@ -247,50 +700,50 @@
     @apply block pt-1.5;
   }
 
-  /* --- article hero: meta card + share rail ----------------------------- */
+  /* --- article hero: meta list + share rail ----------------------------- */
 
-  /* Filled block, dividers inset from the edges — not a bordered table. */
-  .meta-card {
-    @apply bg-soft px-5;
-  }
   .meta-card > div {
-    @apply border-b border-rule py-3 last:border-b-0;
+    @apply grid grid-cols-[6.5rem_1fr] gap-4 border-b border-rule py-3 text-sm first:border-t;
   }
   .meta-card dt {
-    @apply font-mono text-[0.63rem] font-medium tracking-[0.15em] text-muted uppercase;
+    @apply pt-px font-mono text-xs tracking-[0.02em] text-muted;
   }
   .meta-card dd {
-    @apply mt-0.5 text-[0.9rem] text-ink;
+    @apply text-ink;
   }
   .meta-card dd a {
-    @apply border-b border-rule hover:border-signal hover:text-signal;
+    @apply underline decoration-rule-strong underline-offset-4 hover:decoration-ink;
   }
 
   .share-rail {
-    @apply inline-flex flex-row gap-1.5 border border-rule p-1.5 nav:flex-col;
+    @apply inline-flex flex-row gap-2 nav:flex-col;
   }
   /* Laid out under an article rather than beside it. */
   .share-inline .share-rail {
     @apply nav:flex-row;
   }
   .share-button {
-    @apply inline-flex size-9 cursor-pointer items-center justify-center border border-rule
-           text-ink-2 transition-colors hover:border-ink hover:text-ink;
+    @apply inline-flex size-9 cursor-pointer items-center justify-center border border-rule-strong
+           text-ink-2;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  }
+  .share-button:hover {
+    @apply border-ink bg-ink text-paper;
   }
   .share-button svg {
-    @apply size-[0.95rem];
+    @apply size-4;
   }
   .share-button[data-copied='true'] {
-    @apply border-signal text-signal;
+    @apply border-ink bg-ink text-paper;
   }
 
   /* --- page furniture --------------------------------------------------- */
 
   .page-head {
-    @apply border-b border-rule pb-9;
+    @apply border-b border-rule pb-10;
   }
   .page-head .page-title {
-    @apply mt-4.5;
+    @apply mt-6;
   }
   .page-head-link .inline-link,
   .page-foot .inline-link {
@@ -303,8 +756,8 @@
   /* --- résumé ----------------------------------------------------------- */
 
   .resume-heading {
-    @apply border-b border-ink pb-3.5 font-mono text-[0.7rem] font-medium
-           tracking-[0.18em] text-muted uppercase;
+    @apply border-b border-ink pb-3.5 font-mono text-[0.72rem] font-medium
+           tracking-[0.12em] text-muted uppercase;
   }
 
   .entry {
@@ -317,7 +770,7 @@
     @apply text-lg tracking-[-0.02em];
   }
   .entry-title a {
-    @apply border-b border-rule hover:border-signal hover:text-signal;
+    @apply underline decoration-rule-strong underline-offset-4 hover:decoration-ink;
   }
   .entry-sub {
     @apply mt-2 text-muted;
@@ -326,7 +779,7 @@
     @apply mt-3 max-w-[62ch] text-[0.94rem] text-ink-2;
   }
   .entry.is-current::before {
-    @apply top-7.5;
+    @apply top-8;
   }
 
   .entry-points {
@@ -348,17 +801,17 @@
     @apply max-w-[62ch];
   }
   .prose-read {
-    @apply font-read text-[1.14rem] leading-[1.72];
+    @apply font-read text-[1.08rem] leading-[1.75];
   }
 
   .prose > * + * {
     @apply mt-5.5;
   }
   .prose h2 {
-    @apply mt-11 font-sans text-[1.4rem] tracking-[-0.025em];
+    @apply mt-12 font-display text-[1.5rem] tracking-[-0.025em];
   }
   .prose h3 {
-    @apply mt-8 font-sans text-lg;
+    @apply mt-8 font-display text-lg;
   }
   .prose p {
     @apply text-ink-2;
@@ -367,7 +820,7 @@
     @apply font-semibold text-ink;
   }
   .prose a {
-    @apply border-b border-rule text-ink hover:border-signal hover:text-signal;
+    @apply text-ink underline decoration-rule-strong underline-offset-4 hover:decoration-ink;
   }
   .prose ul,
   .prose ol {
@@ -391,19 +844,22 @@
     content: counter(item) '.';
   }
   .prose blockquote {
-    @apply border-l-2 border-signal pl-5 text-ink;
+    @apply border-l-2 border-ink pl-5 text-ink;
   }
   .prose code {
-    @apply bg-soft px-1.5 py-0.5 font-mono text-[0.85em];
+    @apply border border-rule bg-soft px-1.5 py-0.5 font-mono text-[0.85em];
   }
   .prose pre {
-    @apply overflow-x-auto bg-soft px-5 py-4.5 text-[0.82rem] leading-relaxed;
+    @apply overflow-x-auto border border-rule-strong bg-soft px-5 py-4.5 text-[0.82rem] leading-relaxed;
   }
   .prose pre code {
-    @apply bg-transparent p-0 text-[length:inherit];
+    @apply border-0 bg-transparent p-0 text-[length:inherit];
   }
   .prose hr {
     @apply my-10 border-t border-rule;
+  }
+  .prose img {
+    @apply border border-ink;
   }
   .prose table {
     @apply w-full border-collapse text-[0.92rem];
@@ -413,16 +869,42 @@
     @apply border-b border-rule px-2 py-3 text-left;
   }
   .prose th {
-    @apply font-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase;
+    @apply font-mono text-[0.72rem] tracking-[0.12em] text-muted uppercase;
   }
 
   /* --- footer ----------------------------------------------------------- */
 
   .footer-title {
-    @apply font-mono text-[0.68rem] tracking-[0.16em] text-muted uppercase;
+    @apply font-mono text-xs tracking-[0.1em] text-muted uppercase;
   }
   .footer-cols a {
-    @apply text-[0.92rem] text-ink-2 hover:text-signal;
+    @apply text-sm text-ink-2 hover:text-ink;
+  }
+}
+
+/* ---------------------------------------------------------------- motion -- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .fade-up,
+  .js [data-reveal],
+  .js [data-reveal] .range-peak > * {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .hero-range,
+  .hero-sun,
+  .hero-sun-ring,
+  .hero-cloud {
+    animation: none !important;
+  }
+  .hero-sun-ring { stroke-dashoffset: 0; }
+  .hero-cloud { opacity: 1; }
+  .card:hover,
+  a.contact-row:hover {
+    transform: none;
   }
 }
 
@@ -444,5 +926,6 @@
   .lead { margin-top: 0.8rem; font-size: 11pt; }
   .resume-section { margin-top: 1.5rem; break-inside: avoid; }
   .entry { padding: 0.8rem 0; break-inside: avoid; }
-  a { border: 0 !important; }
+  .kicker::before { display: none; }
+  a { border: 0 !important; text-decoration: none !important; }
 }

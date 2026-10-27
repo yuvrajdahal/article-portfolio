@@ -1,0 +1,27 @@
+{{/* Etched Himalayan panorama, west → east, with a live peak key on top.
+     Summit x/y are measured from himalaya-range.svg (viewBox 2000 × 464),
+     so the leader lines land on the real summit points. On reveal each
+     leader grows up from its summit, then its name settles in, west → east. */}}
+{{ $src := "images/himalaya-range.svg" | relURL }}
+{{ $peaks := slice
+  (dict "name" "Dhaulagiri" "m" "8,167" "x" 259 "y" 158 "ly" 70)
+  (dict "name" "Annapurna I" "m" "8,091" "x" 643 "y" 179 "ly" 42)
+  (dict "name" "Machapuchare" "m" "6,993" "x" 1002 "y" 167 "ly" 70)
+  (dict "name" "Manaslu" "m" "8,163" "x" 1392 "y" 167 "ly" 42)
+  (dict "name" "Everest" "m" "8,849" "x" 1791 "y" 140 "ly" 56)
+}}
+<figure class="range" data-reveal>
+  <div class="range-frame">
+    <img class="range-art" src="{{ $src }}" width="2000" height="464" loading="lazy" decoding="async"
+         alt="Etched panorama of the Himalaya: Dhaulagiri, Annapurna I, Machapuchare, Manaslu and Everest">
+    <svg class="range-key" viewBox="0 0 2000 464" aria-hidden="true" focusable="false">
+      {{ range $i, $p := $peaks }}
+        <g class="range-peak" style="--i:{{ $i }}">
+          <line class="range-leader" x1="{{ .x }}" y1="{{ add .ly 10 }}" x2="{{ .x }}" y2="{{ sub .y 10 }}"/>
+          <circle class="range-summit" cx="{{ .x }}" cy="{{ sub .y 4 }}" r="4"/>
+          <text x="{{ .x }}" y="{{ .ly }}" text-anchor="middle">{{ .name }} <tspan class="range-m">{{ .m }} m</tspan></text>
+        </g>
+      {{ end }}
+    </svg>
+  </div>
+</figure>

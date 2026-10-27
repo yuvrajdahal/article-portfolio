@@ -1,0 +1,22 @@
+{{/* Called with (dict "page" $p "i" $index); the index picks the card's glyph. */}}
+{{ $p := .page }}
+<div data-reveal style="--d:{{ printf "%.2f" (mul (mod .i 4) 0.06) }}s">
+  <article class="card">
+    <div class="flex items-start justify-between gap-4">
+      <span class="glyph glyph-{{ mod .i 4 }}" aria-hidden="true"></span>
+      <span class="card-arrow" aria-hidden="true">↗</span>
+    </div>
+    <h3 class="card-title"><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h3>
+    <p class="card-desc">{{ with $p.Params.blurb }}{{ . }}{{ else }}{{ $p.Summary | plainify }}{{ end }}</p>
+    {{ with $p.Params.stack }}
+      <ul class="card-chips" aria-label="Stack">
+        {{ range first 6 . }}<li class="chip">{{ . }}</li>{{ end }}
+        {{ if gt (len .) 6 }}<li class="chip">+{{ sub (len .) 6 }}</li>{{ end }}
+      </ul>
+    {{ end }}
+    <div class="card-foot">
+      <span class="meta pt-0">{{ $p.Params.label | default "Project" }}{{ with $p.Params.period }} · {{ . }}{{ end }}</span>
+      {{ with $p.Params.link }}<a class="mono-link" href="{{ . }}" target="_blank" rel="noopener">Live</a>{{ end }}
+    </div>
+  </article>
+</div>

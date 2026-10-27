@@ -14,7 +14,7 @@ summaryLength = 30
   location = 'Kathmandu, Nepal'
   email = 'iamyuvraj456@gmail.com'
   phone = '+977 9746337223'
-  description = "I'm Yuvraj, a full-stack developer in Kathmandu. I build and operate distributed web systems — microservices behind an API gateway, event pipelines, and the CI/CD and monitoring that keep them running."
+  description = "I'm Yuvraj, a full-stack developer in Kathmandu. I build software end to end — microservice solutions, web and app development, and the CI/CD that ships them."
   ogImage = '/og.png'
   resumeURL = 'https://docs.google.com/document/d/1DAaG15U-u5PxnaLBXgFKS2AxK5n_vlbp7cVe1FeXC-w/edit?tab=t.0'
 

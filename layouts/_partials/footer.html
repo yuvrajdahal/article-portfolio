@@ -1,31 +1,37 @@
-<footer class="site-footer mt-12 shrink-0 border-t border-rule pt-14 pb-10">
+<footer class="site-footer mt-8 shrink-0 pb-10">
   <div class="container-page">
+    <div class="pt-8">
+      {{ partial "range.html" . }}
+      <p class="range-caption"><span>West</span><span>The Himalaya, seen from the south · not to scale</span><span>East</span></p>
+    </div>
+  </div>
+  <div class="container-page pt-14 md:pt-16">
     <div class="grid gap-11 min-[800px]:grid-cols-[5fr_7fr] min-[800px]:gap-8">
       <div>
-        <p class="text-2xl font-semibold tracking-[-0.025em]">{{ site.Params.author }}</p>
-        <p class="mt-3.5 max-w-[34ch] text-sm text-muted">{{ site.Params.role }} in {{ site.Params.location }}. Building services, shipping them, and keeping them up.</p>
-        <div class="mt-5 flex gap-1.5">{{ partial "social-links.html" . }}</div>
+        <a href="{{ "/" | relURL }}" class="wordmark" aria-label="{{ site.Params.author }} — home"><span class="site-mark" aria-hidden="true"></span><span>{{ site.Params.author }}</span></a>
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-ink-2">{{ site.Params.role }} in {{ site.Params.location }}. Building services, shipping them, and keeping them up.</p>
+        <div class="mt-6 flex gap-2">{{ partial "social-links.html" . }}</div>
       </div>
 
       <div class="footer-cols grid grid-cols-3 gap-8">
         <div>
           <p class="footer-title">Work</p>
-          <ul class="mt-3.5 grid gap-2">{{ range site.Menus.footerwork }}<li><a href="{{ if .Params.external }}{{ .URL }}{{ else }}{{ .URL | relURL }}{{ end }}"{{ if .Params.external }} target="_blank" rel="noopener"{{ end }}>{{ .Name }}</a></li>{{ end }}</ul>
+          <ul class="mt-3.5 grid gap-2.5">{{ range site.Menus.footerwork }}<li><a href="{{ if .Params.external }}{{ .URL }}{{ else }}{{ .URL | relURL }}{{ end }}"{{ if .Params.external }} target="_blank" rel="noopener"{{ end }}>{{ .Name }}</a></li>{{ end }}</ul>
         </div>
         <div>
           <p class="footer-title">Writing</p>
-          <ul class="mt-3.5 grid gap-2">{{ range site.Menus.footerwriting }}<li><a href="{{ if .Params.external }}{{ .URL }}{{ else }}{{ .URL | relURL }}{{ end }}"{{ if .Params.external }} target="_blank" rel="noopener"{{ end }}>{{ .Name }}</a></li>{{ end }}</ul>
+          <ul class="mt-3.5 grid gap-2.5">{{ range site.Menus.footerwriting }}<li><a href="{{ if .Params.external }}{{ .URL }}{{ else }}{{ .URL | relURL }}{{ end }}"{{ if .Params.external }} target="_blank" rel="noopener"{{ end }}>{{ .Name }}</a></li>{{ end }}</ul>
         </div>
         <div>
           <p class="footer-title">Elsewhere</p>
-          <ul class="mt-3.5 grid gap-2">{{ range site.Menus.footerelse }}<li><a href="{{ if .Params.external }}{{ .URL }}{{ else }}{{ .URL | relURL }}{{ end }}"{{ if .Params.external }} target="_blank" rel="noopener"{{ end }}>{{ .Name }}</a></li>{{ end }}</ul>
+          <ul class="mt-3.5 grid gap-2.5">{{ range site.Menus.footerelse }}<li><a href="{{ if .Params.external }}{{ .URL }}{{ else }}{{ .URL | relURL }}{{ end }}"{{ if .Params.external }} target="_blank" rel="noopener"{{ end }}>{{ .Name }}</a></li>{{ end }}</ul>
         </div>
       </div>
     </div>
 
-    <div class="mt-12 flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-rule pt-5 font-mono text-[0.68rem] tracking-[0.12em] text-muted uppercase">
-      <p>&copy; {{ now.Year }} {{ site.Params.author }}</p>
-      <p>Built with Hugo · {{ site.Params.location }}</p>
+    <div class="mt-12 flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-rule pt-6 font-mono text-xs tracking-[0.02em] text-muted">
+      <p>&copy; {{ now.Year }} {{ site.Params.author }} · {{ site.Params.location }}</p>
+      <a href="#main" class="hover:text-ink">Back to top ↑</a>
     </div>
   </div>
 </footer>

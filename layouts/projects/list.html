@@ -1,16 +1,16 @@
 {{ define "main" }}
 <div class="container-page">
   <header class="page-head">
-    <p class="kicker">Projects</p>
-    <h1 class="page-title">{{ .Title }}</h1>
-    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+    <p class="kicker fade-up">Projects</p>
+    <h1 class="page-title fade-up" style="--d:0.06s">{{ .Title }}</h1>
+    {{ with .Description }}<p class="lead fade-up" style="--d:0.14s">{{ . }}</p>{{ end }}
   </header>
 
   {{ with .Content }}<div class="prose prose-narrow">{{ . }}</div>{{ end }}
 
-  <div class="rows mt-10">
-    {{ range .Pages }}
-      {{ partial "project-row.html" . }}
+  <div class="cards mt-12">
+    {{ range $i, $p := .Pages }}
+      {{ partial "project-card.html" (dict "page" $p "i" $i) }}
     {{ else }}
       <p class="empty">No projects published yet.</p>
     {{ end }}

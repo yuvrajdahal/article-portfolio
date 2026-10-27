@@ -1,10 +1,11 @@
-<header class="site-header">
+<header id="site-header" class="site-header">
   <div class="container-page flex h-header items-center justify-between gap-5">
-    <a href="{{ "/" | relURL }}" class="font-mono text-[0.8rem] font-medium tracking-[0.16em] whitespace-nowrap uppercase" aria-label="{{ site.Params.author }} — home">
-      {{ site.Params.author }}
+    <a href="{{ "/" | relURL }}" class="wordmark" aria-label="{{ site.Params.author }} — home">
+      <span class="site-mark" aria-hidden="true"></span>
+      <span>{{ site.Params.author }}</span>
     </a>
 
-    <nav class="ml-auto hidden items-center gap-1.5 nav:flex" aria-label="Main">
+    <nav class="ml-auto hidden items-center gap-4 nav:flex wide:gap-6" aria-label="Main">
       {{ range site.Menus.main }}
         {{ $active := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
         <a href="{{ if .Params.external }}{{ .URL }}{{ else }}{{ .URL | relURL }}{{ end }}"
@@ -13,7 +14,7 @@
       {{ end }}
     </nav>
 
-    <div class="ml-4 hidden items-center gap-1.5 wide:flex">
+    <div class="ml-4 hidden items-center gap-2 wide:flex">
       {{ partial "social-links.html" . }}
     </div>
 
@@ -27,7 +28,7 @@
 
 <nav id="mobile-menu" class="mobile-menu" hidden aria-label="Mobile">
   <div class="mb-6 flex h-header items-center justify-between">
-    <span class="font-mono text-[0.8rem] font-medium tracking-[0.16em] uppercase">{{ site.Params.author }}</span>
+    <span class="wordmark"><span class="site-mark" aria-hidden="true"></span><span>{{ site.Params.author }}</span></span>
     <button id="menu-close" class="menu-button" type="button">
       <span class="menu-button-label">Close</span>
     </button>
@@ -42,7 +43,7 @@
   </div>
 
   <div class="mt-7 flex flex-wrap items-center justify-between gap-4">
-    <div class="flex gap-1.5">{{ partial "social-links.html" . }}</div>
+    <div class="flex gap-2">{{ partial "social-links.html" . }}</div>
     <a class="mono-link" href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a>
   </div>
 </nav>

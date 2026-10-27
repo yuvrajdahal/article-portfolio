@@ -1,0 +1,23 @@
+{{/* Hero landscape in two layers sharing one 1254 × 650 frame:
+     the traced far range, and a hand-drawn foothill whose switchback road
+     the jeep climbs as the page scrolls (driven by site.js). */}}
+{{ $road := "M200 646 C300 641 410 633 470 622 C540 610 520 599 450 593 C365 586 335 577 400 569 C470 561 588 555 640 547 C690 539 662 530 602 526 C545 522 545 514 590 510 C614 507 630 503 640 499" }}
+<div class="hero-range" data-scene aria-hidden="true">
+  <img class="scene-far" data-depth="70" src="{{ "images/himalaya.svg" | relURL }}" alt="" width="1254" height="650" fetchpriority="high" decoding="async">
+
+  <svg class="scene-near" data-depth="16" viewBox="0 0 1254 650" fill="none">
+    <path class="scene-hill" d="M-2 652 V585 C90 575 170 556 260 540 C360 522 450 506 540 500 C600 496 650 497 700 502 C800 512 900 532 1000 552 C1100 570 1180 580 1256 584 V652 Z"/>
+    {{/* A few strata on the shaded eastern flank. */}}
+    <path class="scene-hatch" d="M720 520 C780 528 840 540 900 556 M760 548 C820 556 880 568 950 584 M820 584 C890 592 960 604 1040 618 M1000 572 C1060 582 1120 590 1180 596 M300 560 C340 552 380 546 420 542"/>
+
+    <path id="scene-road" class="scene-road-edge" d="{{ $road }}"/>
+    <path class="scene-road-bed" d="{{ $road }}"/>
+    <path class="scene-road-dash" d="{{ $road }}"/>
+    <path class="scene-trail" d="{{ $road }}"/>
+
+    {{/* Jeep artwork is 640 × 427; anchored at the middle of its wheel line. */}}
+    <g class="scene-jeep" transform="translate(200 646)">
+      <image href="{{ "images/jeep.svg" | relURL }}" x="-40" y="-52" width="80" height="53.4"/>
+    </g>
+  </svg>
+</div>

@@ -1,25 +1,16 @@
 {{ define "main" }}
 <div class="container-page">
   <header class="page-head">
-    {{ with .Params.kicker }}<p class="kicker">{{ . }}</p>{{ end }}
-    <h1 class="page-title">{{ .Title }}</h1>
-    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+    <p class="kicker fade-up">{{ .Params.kicker | default .Title }}</p>
+    <h1 class="page-title fade-up" style="--d:0.06s">{{ .Title }}</h1>
+    {{ with .Description }}<p class="lead fade-up" style="--d:0.14s">{{ . }}</p>{{ end }}
   </header>
 
   {{ with .Content }}<div class="prose prose-narrow">{{ . }}</div>{{ end }}
 
-  <div class="rows mt-10">
+  <div class="rows mt-10" data-reveal>
     {{ range .Pages }}
-      {{/* Posts published elsewhere carry `external:` and link straight out. */}}
-      {{ $external := .Params.external }}
-      <a class="row row-link" href="{{ $external | default .RelPermalink }}"
-         {{- with $external }} target="_blank" rel="noopener"{{ end }}>
-        <div class="row-top">
-          <h2 class="row-title">{{ .Title }}</h2>
-          <span class="meta">{{ .Date.Format "Jan 2, 2006" }}{{ with .Params.externalSource }} · {{ . }} ↗{{ end }}</span>
-        </div>
-        <p class="row-desc">{{ .Description | default .Summary }}</p>
-      </a>
+      {{ partial "post-row.html" . }}
     {{ else }}
       <p class="empty">Nothing here yet.</p>
     {{ end }}
