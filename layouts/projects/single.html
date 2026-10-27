@@ -6,7 +6,7 @@
       <div class="grid grid-cols-1 items-end gap-10 nav:grid-cols-[1.6fr_1fr]">
         <div>
           <h1 class="page-title max-w-[20ch] text-display">{{ .Title }}</h1>
-          {{ with .Description }}<p class="lead mt-5 text-base">{{ . }}</p>{{ end }}
+          {{ with .Description }}<p class="lead mt-5 max-w-none text-base">{{ . }}</p>{{ end }}
         </div>
 
         <dl class="meta-card">
@@ -30,14 +30,15 @@
       </div>
     </header>
 
-    <div class="relative mt-14">
-      <div class="mb-8 nav:absolute nav:inset-y-0 nav:left-0 nav:mb-0">
-        <div class="nav:sticky nav:top-[calc(var(--spacing-header)+2.5rem)]">
+    {{/* Share rail keeps its own column on the left; the body runs to the right edge. */}}
+    <div class="article-body">
+      <div>
+        <div class="article-rail">
           {{ partial "share-rail.html" . }}
         </div>
       </div>
 
-      <div class="mx-auto w-full max-w-3xl">
+      <div class="min-w-0">
         {{ with .Params.stack }}
           <div class="spec mt-0 max-w-none">
             <p class="kicker">Stack</p>

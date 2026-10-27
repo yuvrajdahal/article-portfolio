@@ -715,6 +715,14 @@
     @apply underline decoration-rule-strong underline-offset-4 hover:decoration-ink;
   }
 
+  /* Article body: share rail in a narrow left column, text to the right edge. */
+  .article-body {
+    @apply mt-14 grid grid-cols-1 gap-8 nav:grid-cols-[2.25rem_minmax(0,1fr)] nav:gap-12;
+  }
+  .article-rail {
+    @apply nav:sticky nav:top-[calc(var(--spacing-header)+2.5rem)];
+  }
+
   .share-rail {
     @apply inline-flex flex-row gap-2 nav:flex-col;
   }
