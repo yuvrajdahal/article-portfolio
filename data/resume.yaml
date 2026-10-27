@@ -21,7 +21,7 @@ experience:
     current: true
     stack: [Nx, Node.js, React, Redis, PostgreSQL, Kafka, Elasticsearch, Socket.IO, Casbin, Docker, BullMQ]
     points:
-      - Architected and built Baalvo, a multi-vertical marketplace platform, using the Nx monorepo tool with 13+ microservices and 6+ React frontends.
+      - Architected and built iDurbar, a multi-vertical marketplace platform, using the Nx monorepo tool with 13+ microservices and 6+ React frontends.
       - Designed and implemented a centralized API gateway with request proxying, rate limiting, and per-service documentation via Swagger.
       - Engineered role-based access control using Casbin with a Sequelize adapter, enforcing multi-tenant fine-grained permissions by user role.
       - Integrated real-time features including chat and counter/negotiation systems via Socket.IO, geospatial filtering via PostGIS, and background jobs using BullMQ and Redis.

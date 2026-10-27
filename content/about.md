@@ -9,7 +9,7 @@ Hey, I'm Yuvraj — a full-stack developer based in Kathmandu, currently at **Sa
 
 ## What I'm building now
 
-At Saurik I architected **Baalvo**, a multi-vertical marketplace platform. It's an Nx monorepo holding 13+ microservices and 6+ React frontends, fronted by a single API gateway that handles request proxying, rate limiting, and per-service Swagger documentation.
+At Saurik I architected **iDurbar**, a multi-vertical marketplace platform. It's an Nx monorepo holding 13+ microservices and 6+ React frontends, fronted by a single API gateway that handles request proxying, rate limiting, and per-service Swagger documentation.
 
 The interesting problems there haven't been the CRUD. They've been the seams: enforcing multi-tenant, fine-grained permissions with Casbin and a Sequelize adapter; keeping chat and counter-offer negotiation live over Socket.IO; running geospatial filtering through PostGIS; moving work off the request path with BullMQ and Redis; and wiring Kafka and Elasticsearch together so services talk asynchronously and product search still returns in under a second.
 

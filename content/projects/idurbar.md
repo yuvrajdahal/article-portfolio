@@ -1,10 +1,12 @@
 ---
-title: "Baalvo"
+title: "iDurbar"
+aliases:
+  - /projects/baalvo/
 date: 2026-01-15
 label: "Platform"
 period: "2026 — present"
-link: "https://baalmart.com"
-linkLabel: "baalmart.com"
+link: "https://idurbar.com"
+linkLabel: "idurbar.com"
 description: "A multi-vertical SaaS marketplace covering real estate, jobs, salon booking, and second-hand goods — 13 microservices behind one API gateway."
 blurb: "Multi-vertical marketplace SaaS: four verticals, 13 microservices behind one Express API gateway, each with vendor, client, and admin dashboards."
 stack:
@@ -23,7 +25,7 @@ stack:
   - "Jenkins"
 ---
 
-Baalvo is a marketplace platform that runs four businesses at once: real estate, a job board, beauty and salon booking, and a second-hand marketplace. Each vertical has its own vendor, client, and admin dashboard, and they share a single backend.
+iDurbar is a marketplace platform that runs four businesses at once: real estate, a job board, beauty and salon booking, and a second-hand marketplace. Each vertical has its own vendor, client, and admin dashboard, and they share a single backend.
 
 ## Shape of the system
 
